@@ -28,3 +28,5 @@ Handle this exercise as would be for a customer.
 * You can either hardcode the JSON in your QAction or read the file from your file system.
 * To parse the JSON use NewtonSoft.Json.
 * Consider using the QActionTableRows for updating tables.
+
+![Info](~/Documentation/Untitled.png)
