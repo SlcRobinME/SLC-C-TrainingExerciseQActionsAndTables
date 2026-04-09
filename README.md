@@ -3,7 +3,7 @@
 ## Description
 
 The goal of this exercise is to parse a JSON file and fill in the data in the corresponding tables.
-The JSON file contains an overview of transportstreams and services, the file is available in the Documentation folder.
+The JSON file contains an overview of transportstreams and services, the file is available in the Documentation folder of this repo.
 
 * Create a Transportstreams table.
 * Create a Services table.
@@ -25,7 +25,7 @@ Handle this exercise as would be for a customer.
 
 ## Tips
 
-* You can either hardcode the JSON in your QAction or read the file from your file system.
+* You can either hardcode the JSON in your QAction or read the file from your file system (-> "C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json")
 * To parse the JSON use NewtonSoft.Json.
 * Consider using the QActionTableRows for updating tables.
 
