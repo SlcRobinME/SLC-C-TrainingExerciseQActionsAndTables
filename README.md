@@ -29,4 +29,4 @@ Handle this exercise as would be for a customer.
 * To parse the JSON use NewtonSoft.Json.
 * Consider using the QActionTableRows for updating tables.
 
-![Info](~/Documentation/Untitled.png)
+![Info](Documentation/Untitled.png)
