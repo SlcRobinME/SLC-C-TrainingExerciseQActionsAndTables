@@ -1,4 +1,4 @@
-# Training Exercise QActions & Tables
+# 1. Training Exercise QActions & Tables
 
 ## Description
 
@@ -29,4 +29,31 @@ Handle this exercise as would be for a customer.
 * To parse the JSON use NewtonSoft.Json.
 * Consider using the QActionTableRows for updating tables.
 
-![Info](Documentation/Untitled.png)
+---
+---
+
+# 2. Training Exercise: Unit Testing
+
+## Description
+
+By utilizing the [UnitTestingFramework](https://github.com/SkylineCommunications/Skyline.DataMiner.Utils.UnitTestingFramework/pkgs/nuget/Skyline.DataMiner.Utils.UnitTestingFramework.Protocol), make sure the following parts are tested and verified correctly:
+1. Parsing of the JSON data
+2. Populating the table data & assert that the added row(s) contain the correct values.
+
+## Requirement
+* Complete section *2.4 Unit Test Training* from the training document first ([Videos](https://community.dataminer.services/courses/data-ingest-control-plane-development-unit-testing/lessons/unit-testing-introduced/))
+
+---
+---
+
+# 3. Training Exercise: TreeControl
+
+## Description
+
+Since the data is structured in a relation way, the end user is requesting a better visualization than the default tables and would like to see the data structured in a Tree View.
+Based on the JSON data, define a logical structure for the tree view and apply the layout.
+
+## Requirements
+
+* The data is structured in a tree view, [example](https://docs.dataminer.services/develop/images/uiX_-_advanced_hierarchy.png).
+* Alarms bubble up to the top level correctly, similar as the View structure behaves within Cube.

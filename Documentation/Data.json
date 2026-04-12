@@ -9,12 +9,14 @@
                     "service_id": 52006,
                     "service_name": "Service 1",
                     "service_type": "digital_television",
-                    "service_provider": "Provider A"
+                    "service_provider": "Provider A",
+					"service_bitrate": 27.8
                 }, {
                     "service_id": 52007,
                     "service_name": "Service 2",
                     "service_type": "digital_television",
-                    "service_provider": "Provider A"
+                    "service_provider": "Provider A",
+					"service_bitrate": 25.3
                 }
             ]
         }, {
@@ -27,12 +29,14 @@
                     "service_id": 101,
                     "service_name": "Service 3",
                     "service_type": "digital_television",
-                    "service_provider": "Provider B"
+                    "service_provider": "Provider B",
+					"service_bitrate": 5.0
                 }, {
                     "service_id": 102,
                     "service_name": "Service 4",
                     "service_type": "digital_radio",
-                    "service_provider": "Provider B"
+                    "service_provider": "Provider B",
+					"service_bitrate": 5.4
                 }
             ]
         }, {
@@ -45,12 +49,14 @@
                     "service_id": 2003,
                     "service_name": "Service 5",
                     "service_type": "digital_television",
-                    "service_provider": "Provider C"
+                    "service_provider": "Provider C",
+					"service_bitrate": 8.9
                 }, {
                     "service_id": 2004,
                     "service_name": "Service 6",
                     "service_type": "digital_radio",
-                    "service_provider": "Provider C"
+                    "service_provider": "Provider C",
+					"service_bitrate": 10.6
                 }
             ]
         }
