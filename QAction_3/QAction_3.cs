@@ -47,8 +47,7 @@ public static class QAction
                     TransportStreamLastPolled_1007 = lastPolled,
                 });
 
-                protocol.SetRow(Parameter.TransportStreams.tablePid, tsKey, tsRows.Last().ToObjectArray());
-
+                // protocol.SetRow(Parameter.TransportStreams.tablePid, tsKey, tsRows.Last().ToObjectArray());
                 if (ts.Services == null)
                     continue;
 
@@ -67,12 +66,13 @@ public static class QAction
                         ServiceTransportStreamID_2007 = tsKey,
                         ServiceLastPolled_2008 = lastPolled,
                     });
-                    protocol.SetRow(Parameter.Services.tablePid, svcKey, svcRows.Last().ToObjectArray());
+
+                    // protocol.SetRow(Parameter.Services.tablePid, svcKey, svcRows.Last().ToObjectArray());
                 }
             }
 
-            //protocol.FillArray(Parameter.TransportStreams.tablePid, tsRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
-            //protocol.FillArray(Parameter.Services.tablePid, svcRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
+            protocol.FillArray(Parameter.TransportStreams.tablePid, tsRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
+            protocol.FillArray(Parameter.Services.tablePid, svcRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
 
             protocol.Log("QAction3|Rows successfully added (AddRow)", LogType.Allways, LogLevel.NoLogging);
         }
