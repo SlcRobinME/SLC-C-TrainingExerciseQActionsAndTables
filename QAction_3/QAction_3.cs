@@ -1,10 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Skyline.DataMiner.Scripting;
-using Skyline.DataMiner.Utils.SecureCoding.SecureSerialization.Json.Newtonsoft;
 using Skyline.DataMiner.Utils.SecureCoding.SecureIO;
+using Skyline.DataMiner.Utils.SecureCoding.SecureSerialization.Json.Newtonsoft;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 /// <summary>
 /// DataMiner QAction Class: Parse Transport Streams JSON.
@@ -58,8 +59,14 @@ public static class QAction
                 ]
             }";
 
-            // string filePath = SecurePath.ConstructSecurePath(AppDomain.CurrentDomain.BaseDirectory, "Data.json");
-            // jsonRaw = File.ReadAllText(filePath);
+            //string filePath = @"C:\Users\AmerMO\Documents\training\SLC-C-TrainingExerciseQActionsAndTables\Documentation\Data.json";
+            //string filePath = SecurePath.ConstructSecurePath(
+            //    AppDomain.CurrentDomain.BaseDirectory,
+            //    "Documentation",
+            //    "Data.json"
+            //);
+
+            //jsonRaw = File.ReadAllText(filePath);
 
             var root = SecureNewtonsoftDeserialization.DeserializeObject<Root>(jsonRaw);
             protocol.Log($"QAction3|Deserialized root={(root != null ? "OK" : "NULL")}", LogType.Allways, LogLevel.NoLogging);
@@ -81,7 +88,7 @@ public static class QAction
                     ts.SourceIp,                        // 1004
                     (double)ts.NetworkId,               // 1005
                     (double)(ts.Services?.Count ?? 0),  // 1006
-                    lastPolled,                          // 1007
+                    lastPolled,                         // 1007
                 });
 
                 if (ts.Services == null)
@@ -98,9 +105,9 @@ public static class QAction
                         svc.ServiceName,                 // 2003
                         svc.ServiceType,                 // 2004
                         svc.ServiceProvider,             // 2005
-                        svc.ServiceBitrate,              // 2006 (double)
+                        svc.ServiceBitrate,              // 2006
                         tsKey,                           // 2007 (FK)
-                        lastPolled,                       // 2008
+                        lastPolled,                      // 2008
                     });
                 }
             }
@@ -112,49 +119,4 @@ public static class QAction
             protocol.Log($"QAction3|Exception: {ex.Message}\n{ex.StackTrace}", LogType.Error, LogLevel.NoLogging);
         }
     }
-}
-
-public class Root
-{
-    [JsonProperty("transport_streams")]
-    public List<TransportStream> TransportStreams { get; set; }
-}
-
-public class TransportStream
-{
-    [JsonProperty("ts_id")]
-    public int TsId { get; set; }
-
-    [JsonProperty("ts_name")]
-    public string TsName { get; set; }
-
-    [JsonProperty("multicast")]
-    public string Multicast { get; set; }
-
-    [JsonProperty("sourceIp")]
-    public string SourceIp { get; set; }
-
-    [JsonProperty("network_id")]
-    public int NetworkId { get; set; }
-
-    [JsonProperty("services")]
-    public List<Service> Services { get; set; }
-}
-
-public class Service
-{
-    [JsonProperty("service_id")]
-    public int ServiceId { get; set; }
-
-    [JsonProperty("service_name")]
-    public string ServiceName { get; set; }
-
-    [JsonProperty("service_type")]
-    public string ServiceType { get; set; }
-
-    [JsonProperty("service_provider")]
-    public string ServiceProvider { get; set; }
-
-    [JsonProperty("service_bitrate")]
-    public double ServiceBitrate { get; set; }
 }

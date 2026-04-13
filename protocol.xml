@@ -411,7 +411,7 @@
 	</Relations>
 	<QActions>
 		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile" />
-		<QAction id="2" name="After Startup" encoding="csharp" />
+		<QAction id="2" name="After Startup" encoding="csharp" triggers="2"/>
 		<QAction id="3" name="Parse Transport Streams JSON" encoding="csharp" triggers="50;52" options="precompile" />		
 	</QActions>
 	<Groups>
