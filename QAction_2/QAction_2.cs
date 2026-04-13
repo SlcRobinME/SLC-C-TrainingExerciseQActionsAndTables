@@ -1,9 +1,10 @@
+using Newtonsoft.Json;
+using Skyline.DataMiner.Scripting;
+using Skyline.DataMiner.Utils.SecureCoding.SecureIO;
+using Skyline.DataMiner.Utils.SecureCoding.SecureSerialization.Json.Newtonsoft;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-
-using Skyline.DataMiner.Scripting;
+using System.IO;
 
 /// <summary>
 /// DataMiner QAction Class: After Startup.
@@ -18,11 +19,10 @@ public static class QAction
     {
         try
         {
-
         }
         catch (Exception ex)
         {
-            protocol.Log($"QA{protocol.QActionID}|{protocol.GetTriggerParameter()}|Run|Exception thrown:{Environment.NewLine}{ex}", LogType.Error, LogLevel.NoLogging);
+            protocol.Log($"QAction3|Exception: {ex.Message}\n{ex.StackTrace}", LogType.Error, LogLevel.NoLogging);
         }
     }
 }
