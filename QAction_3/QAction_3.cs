@@ -16,7 +16,7 @@ public static class QAction
     /// The QAction entry point.
     /// </summary>
     /// <param name="protocol">Link with SLProtocol process.</param>
-    public static void Run(SLProtocol protocol)
+    public static void Run(SLProtocolExt protocol)
     {
         try
         {
@@ -71,8 +71,8 @@ public static class QAction
                 }
             }
 
-            protocol.FillArray(Parameter.TransportStreams.tablePid, tsRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
-            protocol.FillArray(Parameter.Services.tablePid, svcRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
+            protocol.transportStreams.FillArray(tsRows.Select(r => r.ToObjectArray()).ToList());
+            protocol.services.FillArray(svcRows.Select(r => r.ToObjectArray()).ToList());
 
             protocol.Log("QAction3|Rows successfully added (AddRow)", LogType.Allways, LogLevel.NoLogging);
         }
