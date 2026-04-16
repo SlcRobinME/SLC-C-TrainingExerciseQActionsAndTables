@@ -28,7 +28,7 @@ public static class QAction
 
             string lastPolled = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            var tsRows = new List<TransportStreamsQActionRow>();
+            var tsRows = new List<TransportstreamsQActionRow>();
             var svcRows = new List<ServicesQActionRow>();
 
             Random rng = new Random();
@@ -36,15 +36,15 @@ public static class QAction
             foreach (var ts in root.TransportStreams)
             {
                 string tsKey = ts.TsId.ToString();
-                tsRows.Add(new TransportStreamsQActionRow
+                tsRows.Add(new TransportstreamsQActionRow
                 {
-                    TransportStreamID_1001 = tsKey,
-                    TransportStreamName_1002 = ts.TsName,
-                    TransportStreamMulticast_1003 = ts.Multicast,
-                    TransportStreamSourceIP_1004 = ts.SourceIp,
-                    TransportStreamNetworkID_1005 = ts.NetworkId.ToString(),
-                    TransportStreamNumberOfServices_1006 = (double)(ts.Services?.Count ?? 0),
-                    TransportStreamLastPolled_1007 = lastPolled,
+                    Transportstreamsid_1001 = tsKey,
+                    Transportstreamsname_1002 = ts.TsName,
+                    Transportstreamsmulticast_1003 = ts.Multicast,
+                    Transportstreamsip_1004 = ts.SourceIp,
+                    Transportstreamsnetworkid_1005 = ts.NetworkId.ToString(),
+                    Transportstreamsnumberofservices_1006 = (double)(ts.Services?.Count ?? 0),
+                    Transportstreamslastpolled_1007 = lastPolled,
                 });
 
                 // protocol.SetRow(Parameter.TransportStreams.tablePid, tsKey, tsRows.Last().ToObjectArray());
@@ -57,22 +57,22 @@ public static class QAction
 
                     svcRows.Add(new ServicesQActionRow
                     {
-                        ServiceInstanceID_2001 = svcKey,
-                        ServiceID_2002 = (double)svc.ServiceId,
-                        ServiceName_2003 = svc.ServiceName,
-                        ServiceType_2004 = svc.ServiceType,
-                        ServiceProvider_2005 = svc.ServiceProvider,
-                        ServiceBitrate_2006 = svc.ServiceBitrate <= 0 ? Math.Round(rng.NextDouble() * 15, 3) : svc.ServiceBitrate,
-                        ServiceTransportStreamID_2007 = tsKey,
-                        ServiceLastPolled_2008 = lastPolled,
+                        Servicesinstanceid_2001 = svcKey,
+                        Servicesid_2002 = (double)svc.ServiceId,
+                        Servicesname_2003 = svc.ServiceName,
+                        Servicestype_2004 = svc.ServiceType,
+                        Servicesprovider_2005 = svc.ServiceProvider,
+                        Servicesbitrate_2006 = svc.ServiceBitrate <= 0 ? Math.Round(rng.NextDouble() * 15, 3) : svc.ServiceBitrate,
+                        Servicestransportstreamid_2007 = tsKey,
+                        Serviceslastpolled_2008 = lastPolled,
                     });
 
                     // protocol.SetRow(Parameter.Services.tablePid, svcKey, svcRows.Last().ToObjectArray());
                 }
             }
 
-            protocol.FillArray(Parameter.TransportStreams.tablePid, tsRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
-            protocol.FillArray(Parameter.Services.tablePid, svcRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
+            protocol.FillArray(Transportstreams.tablePid, tsRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
+            protocol.FillArray(Services.tablePid, svcRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
 
             protocol.Log("QAction3|Rows successfully added (AddRow)", LogType.Allways, LogLevel.NoLogging);
         }

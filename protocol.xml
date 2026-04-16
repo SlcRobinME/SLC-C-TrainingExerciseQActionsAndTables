@@ -34,7 +34,7 @@
 		</Param>
 		
 		<Param id="50" setter="true">
-			<Name>Force Poll</Name>
+			<Name>ForcePoll</Name>
 			<Description>Force Poll</Description>
 			<Type>write</Type>
 			<Interprete>
@@ -42,6 +42,9 @@
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Information>
+				<Subtext>Button to force pull data from JSON</Subtext>
+			</Information>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Positions>
@@ -63,13 +66,13 @@
 			</Measurement>
 		</Param>
 		<Param id="52">
-			<Name>Poll Trigger</Name>
+			<Name>PollTrigger</Name>
 			<Description>Poll Trigger</Description>
 			<Type>dummy</Type>
 		</Param>
 		<!-- ==================== TRANSPORT STREAMS TABLE ==================== -->
 		<Param id="1000">
-			<Name>Transport Streams</Name>
+			<Name>transportStreams</Name>
 			<Description>Table for transport streams</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
@@ -81,8 +84,6 @@
 				<ColumnOption idx="5" pid="1006" type="retrieved" options=""/>
 				<ColumnOption idx="6" pid="1007" type="retrieved" options=""/>
 			</ArrayOptions>
-			
-			
 			<Information>
 				<Subtext>Overview of Transport Streams</Subtext>
 			</Information>
@@ -97,11 +98,11 @@
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:1001|0-1002|1-1003|2-1004|3-1005|4-1006|5-1007|6,width:278-153-220-172-184-230-180,sort:STRING-STRING-STRING-STRING-INT-INT-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:1001|0-1002|1-1003|2-1004|3-1005|4-1006|5-1007|6,width:278-153-220-172-184-230-295,sort:STRING-STRING-STRING-STRING-INT-INT-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="1001" trending="false">
-			<Name>Transport Stream ID</Name>
+			<Name>transportStreamsID</Name>
 			<Description>Transport identifier of the transport stream</Description>
 			<Type>read</Type>
 			<Information>
@@ -120,7 +121,7 @@
 			</Measurement>
 		</Param>
 		<Param id="1002" trending="false">
-			<Name>Transport Stream Name</Name>
+			<Name>transportStreamsName</Name>
 			<Description>Transport Stream Name</Description>
 			<Type>read</Type>
 			<Information>
@@ -139,7 +140,7 @@
 			</Measurement>
 		</Param>
 		<Param id="1003" trending="false">
-			<Name>Transport Stream Multicast</Name>
+			<Name>transportStreamsMulticast</Name>
 			<Description>Transport Stream Multicast Address</Description>
 			<Type>read</Type>
 			<Information>
@@ -158,7 +159,7 @@
 			</Measurement>
 		</Param>
 		<Param id="1004" trending="false">
-			<Name>Transport Stream Source IP</Name>
+			<Name>transportStreamsIP</Name>
 			<Description>Transport Stream Source IP</Description>
 			<Type>read</Type>
 			<Information>
@@ -177,7 +178,7 @@
 			</Measurement>
 		</Param>
 		<Param id="1005" trending="false">
-			<Name>Transport Stream Network ID</Name>
+			<Name>transportStreamsNetworkID</Name>
 			<Description>Transport Stream Network ID</Description>
 			<Type>read</Type>
 			<Information>
@@ -190,13 +191,18 @@
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<Units>Units</Units>
+				<Range>
+					<Low>0</Low>
+					<High>9999</High>
+				</Range>
 			</Display>
 			<Measurement>
 				<Type>number</Type>
 			</Measurement>
 		</Param>
 		<Param id="1006" trending="false">
-			<Name>Transport Stream Number of Services</Name>
+			<Name>transportStreamsNumberOfServices</Name>
 			<Description>Transport Stream Number of Services</Description>
 			<Type>read</Type>
 			<Information>
@@ -209,15 +215,23 @@
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<Units>Units</Units>
+				<Range>
+					<Low>0</Low>
+					<High>250</High>
+				</Range>
 			</Display>
 			<Measurement>
 				<Type>number</Type>
 			</Measurement>
 		</Param>
 		<Param id="1007" trending="false">
-			<Name>Transport Stream Last Polled</Name>
+			<Name>transportStreamsLastPolled</Name>
 			<Description>Transport Stream Last Polled (Transport Streams)</Description>
 			<Type>read</Type>
+			<Information>
+				<Subtext>Timestamp of the last poll for the transport stream</Subtext>
+			</Information>
 			<Interprete>
 				<RawType>other</RawType>
 				<Type>string</Type>
@@ -259,11 +273,11 @@
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:2001|0-2002|1-2003|2-2004|3-2005|4-2006|5-2007|6-2008|7,width:305-100-100-100-111-100-225-180,sort:STRING-INT-STRING-STRING-STRING-DOUBLE-STRING-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:2001|0-2002|1-2003|2-2004|3-2005|4-2006|5-2007|6-2008|7,width:305-100-100-100-111-144-225-187,sort:STRING-INT-STRING-STRING-STRING-INT-STRING-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="2001" trending="false">
-			<Name>Service Instance ID</Name>
+			<Name>ServicesInstanceID</Name>
 			<Description>Service Instance ID (Primary Key: tsId/serviceId)</Description>
 			<Type>read</Type>
 			<Information>
@@ -282,7 +296,7 @@
 			</Measurement>
 		</Param>
 		<Param id="2002" trending="false">
-			<Name>Service ID</Name>
+			<Name>ServicesID</Name>
 			<Description>Service ID</Description>
 			<Type>read</Type>
 			<Information>
@@ -295,13 +309,18 @@
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<Units>Units</Units>
+				<Range>
+					<Low>0</Low>
+					<High>99999</High>
+				</Range>
 			</Display>
 			<Measurement>
 				<Type>number</Type>
 			</Measurement>
 		</Param>
 		<Param id="2003" trending="false">
-			<Name>Service Name</Name>
+			<Name>ServicesName</Name>
 			<Description>Service Name</Description>
 			<Type>read</Type>
 			<Information>
@@ -320,7 +339,7 @@
 			</Measurement>
 		</Param>
 		<Param id="2004" trending="false">
-			<Name>Service Type</Name>
+			<Name>ServicesType</Name>
 			<Description>Service Type</Description>
 			<Type>read</Type>
 			<Information>
@@ -339,7 +358,7 @@
 			</Measurement>
 		</Param>
 		<Param id="2005" trending="false">
-			<Name>Service Provider</Name>
+			<Name>ServicesProvider</Name>
 			<Description>Service Provider</Description>
 			<Type>read</Type>
 			<Information>
@@ -358,7 +377,7 @@
 			</Measurement>
 		</Param>
 		<Param id="2006" trending="false">
-			<Name>Service Bitrate</Name>
+			<Name>ServicesBitrate</Name>
 			<Description>Service Bitrate (Mbps)</Description>
 			<Type>read</Type>
 			<Interprete>
@@ -366,15 +385,23 @@
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Information>
+				<Subtext>Bitrate of the service in Mbps</Subtext>
+			</Information>
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<Units>Mbps</Units>
+				<Range>
+					<Low>0</Low>
+					<High>100</High>
+				</Range>
 			</Display>
 			<Measurement>
 				<Type>number</Type>
 			</Measurement>
 		</Param>
 		<Param id="2007" trending="false">
-			<Name>Service Transport Stream ID</Name>
+			<Name>ServicesTransportStreamID</Name>
 			<Description>Foreign Key - Transport Stream ID</Description>
 			<Type>read</Type>
 			<Interprete>
@@ -382,6 +409,9 @@
 				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Information>
+				<Subtext>Foreign key linking to the transport stream the service belongs to</Subtext>
+			</Information>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 			</Display>
@@ -390,14 +420,17 @@
 			</Measurement>
 		</Param>
 		<Param id="2008" trending="false">
-			<Name>Service Last Polled</Name>
-			<Description>Service Last Polled (Services)</Description>
+			<Name>ServicesLastPolled</Name>
+			<Description>Services Last Polled (Services)</Description>
 			<Type>read</Type>
 			<Interprete>
 				<RawType>other</RawType>
 				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Information>
+				<Subtext>Timestamp of the last poll for the service</Subtext>
+			</Information>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 			</Display>
