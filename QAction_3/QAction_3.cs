@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
+using static Skyline.DataMiner.Scripting.Parameter;
 
 /// <summary>
 /// DataMiner QAction Class: Parse Transport Streams JSON.
@@ -71,8 +71,8 @@ public static class QAction
                 }
             }
 
-            protocol.transportStreams.FillArray(tsRows.Select(r => r.ToObjectArray()).ToList());
-            protocol.services.FillArray(svcRows.Select(r => r.ToObjectArray()).ToList());
+            protocol.FillArray(Parameter.TransportStreams.tablePid, tsRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
+            protocol.FillArray(Parameter.Services.tablePid, svcRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
 
             protocol.Log("QAction3|Rows successfully added (AddRow)", LogType.Allways, LogLevel.NoLogging);
         }
