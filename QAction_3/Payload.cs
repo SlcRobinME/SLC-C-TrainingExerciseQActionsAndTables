@@ -3,6 +3,10 @@ using Newtonsoft.Json;
 
 public class Root
 {
+#pragma warning disable SA1401 // Fields should be private
+    public static string JsonPath = @"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json";
+#pragma warning restore SA1401 // Fields should be private
+
     [JsonProperty("transport_streams")]
     public List<TransportStream> TransportStreams { get; set; }
 }

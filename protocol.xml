@@ -27,12 +27,6 @@
 	</Compliancies>
 
 	<Params>
-		<Param id="2">
-			<Name>AfterStartup</Name>
-			<Description>After Startup</Description>
-			<Type>dummy</Type>
-		</Param>
-		
 		<Param id="50" setter="true">
 			<Name>ForcePoll</Name>
 			<Description>Force Poll</Description>
@@ -443,19 +437,9 @@
 		<Relation path="1000;2000"/>
 	</Relations>
 	<QActions>
-		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile" />
-		<QAction id="2" name="After Startup" encoding="csharp" triggers="2"/>
 		<QAction id="3" name="Parse Transport Streams JSON" encoding="csharp" triggers="50;52" options="precompile" />		
 	</QActions>
 	<Groups>
-		<Group id="2">
-			<Name>After Startup</Name>
-			<Description>After Startup</Description>
-			<Type>poll action</Type>
-			<Content>
-				<Action>2</Action>
-			</Content>
-		</Group>
 		<Group id="3">
 			<Name>Parse Transport Streams</Name>
 			<Description>Parse Transport Streams</Description>
@@ -465,28 +449,7 @@
 			</Content>
 		</Group>
 	</Groups>
-	<Triggers>
-		<Trigger id="1">
-			<Name>After Startup</Name>
-			<On>protocol</On>
-			<Time>after startup</Time>
-			<Type>action</Type>
-			<Content>
-				<Id>1</Id>
-			</Content>
-		</Trigger>
-	</Triggers>
 	<Actions>
-		<Action id="1">
-			<Name>After Startup Group</Name>
-			<On id="2">group</On>
-			<Type>execute next</Type>
-		</Action>
-		<Action id="2">
-			<Name>After Startup QAction</Name>
-			<On id="2">parameter</On>
-			<Type>run actions</Type>
-		</Action>
 		<Action id="3">
 			<Name>Trigger Parse QAction</Name>
 			<On id="52">parameter</On>
@@ -503,8 +466,6 @@
 			</Content>
 		</Timer>
 	</Timers>
-	<PortSettings>
-	</PortSettings>
 	<VersionHistory>
 		<Branches>
 			<Branch id="1">
@@ -515,9 +476,9 @@
 							<MajorVersion id="0">
 								<MinorVersions>
 									<MinorVersion id="1">
-										<Date>2024-01-09</Date>
+										<Date>2026-01-04</Date>
 										<Provider>
-											<Author>XXX</Author>
+											<Author>AMO</Author>
 											<Company>Skyline Communications</Company>
 										</Provider>
 										<Changes>

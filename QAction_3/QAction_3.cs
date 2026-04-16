@@ -1,11 +1,10 @@
-﻿using Skyline.DataMiner.Net.ClientCompatibility.Helpers;
-using Skyline.DataMiner.Scripting;
-using Skyline.DataMiner.Utils.SecureCoding.SecureSerialization.Json.Newtonsoft;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static Skyline.DataMiner.Scripting.Parameter;
+using Skyline.DataMiner.Scripting;
+using Skyline.DataMiner.Utils.SecureCoding.SecureIO;
+using Skyline.DataMiner.Utils.SecureCoding.SecureSerialization.Json.Newtonsoft;
 
 /// <summary>
 /// DataMiner QAction Class: Parse Transport Streams JSON.
@@ -20,8 +19,9 @@ public static class QAction
     {
         try
         {
-            string filePath = @"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json";
-            string jsonRaw = File.ReadAllText(filePath);
+            string filePath = Root.JsonPath;
+
+            string jsonRaw = File.ReadAllText(SecurePath.CreateSecurePath(filePath));
 
             var root = SecureNewtonsoftDeserialization.DeserializeObject<Root>(jsonRaw);
             protocol.Log($"QAction3|Deserialized root={(root != null ? "OK" : "NULL")}", LogType.Allways, LogLevel.NoLogging);
@@ -71,8 +71,8 @@ public static class QAction
                 }
             }
 
-            protocol.FillArray(Transportstreams.tablePid, tsRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
-            protocol.FillArray(Services.tablePid, svcRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
+            protocol.FillArray(Parameter.Transportstreams.tablePid, tsRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
+            protocol.FillArray(Parameter.Services.tablePid, svcRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
 
             protocol.Log("QAction3|Rows successfully added (AddRow)", LogType.Allways, LogLevel.NoLogging);
         }

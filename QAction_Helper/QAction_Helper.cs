@@ -219,7 +219,6 @@ public interface SLProtocolExt : SLProtocol
 	TransportstreamsQActionTable transportstreams { get; set; }
 	/// <summary>PID: 2000</summary>
 	ServicesQActionTable services { get; set; }
-	object Afterstartup_dummy { get; set; }
 	object Forcepoll_50 { get; set; }
 	object Forcepoll { get; set; }
 	object Polltrigger_dummy { get; set; }
@@ -261,8 +260,6 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public TransportstreamsQActionTable transportstreams { get; set; }
 	/// <summary>PID: 2000</summary>
 	public ServicesQActionTable services { get; set; }
-	/// <summary>PID: 2  | Type: dummy</summary>
-	public System.Object Afterstartup_dummy {get { return GetParameter(2); }set { SetParameter(2, value); }}
 	/// <summary>PID: 50  | Type: write | DISCREETS: Force Poll = 1</summary>
 	public System.Object Forcepoll_50 {get { return GetParameter(50); }set { SetParameter(50, value); }}
 	/// <summary>PID: 50  | Type: write | DISCREETS: Force Poll = 1</summary>
