@@ -56,7 +56,7 @@
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type>button</Type>
+				<Type width="110">button</Type>
 				<Discreets>
 					<Discreet>
 						<Display>Force Poll</Display>
@@ -73,7 +73,7 @@
 		<!-- ==================== TRANSPORT STREAMS TABLE ==================== -->
 		<Param id="1000">
 			<Name>transportStreams</Name>
-			<Description>Table for transport streams</Description>
+			<Description>Table for Transport Streams</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
 				<ColumnOption idx="0" pid="1001" type="retrieved" options=""/>
@@ -103,7 +103,7 @@
 		</Param>
 		<Param id="1001" trending="false">
 			<Name>transportStreamsID</Name>
-			<Description>Transport identifier of the transport stream</Description>
+			<Description>Transport Identifier of the Transport Stream</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Unique identifier of the transport stream</Subtext>
@@ -247,7 +247,7 @@
 		<!-- ==================== SERVICES TABLE ==================== -->
 		<Param id="2000" trending="false">
 			<Name>Services</Name>
-			<Description>Table for services within transport stream</Description>
+			<Description>Table for Services Within Transport Stream</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
 				<ColumnOption idx="0" pid="2001" type="retrieved" options=""/>
@@ -278,7 +278,7 @@
 		</Param>
 		<Param id="2001" trending="false">
 			<Name>ServicesInstanceID</Name>
-			<Description>Service Instance ID (Primary Key: tsId/serviceId)</Description>
+			<Description>Service Instance ID (Primary Key: Tsid/Serviceid)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Composite key combining TS ID and Service ID</Subtext>
