@@ -59,11 +59,6 @@
 				</Discreets>
 			</Measurement>
 		</Param>
-		<Param id="52">
-			<Name>PollTrigger</Name>
-			<Description>Poll Trigger</Description>
-			<Type>dummy</Type>
-		</Param>
 		<!-- ==================== TRANSPORT STREAMS TABLE ==================== -->
 		<Param id="1000">
 			<Name>transportStreams</Name>
@@ -92,7 +87,7 @@
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:1001|0-1002|1-1003|2-1004|3-1005|4-1006|5-1007|6,width:278-153-220-172-184-230-295,sort:STRING-STRING-STRING-STRING-INT-INT-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:1001|0-1002|1-1003|2-1004|3-1005|4-1006|5-1007|6,width:281-153-220-172-184-230-295,sort:STRING-STRING-STRING-STRING-INT-INT-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="1001" trending="false">
@@ -267,7 +262,7 @@
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:2001|0-2002|1-2003|2-2004|3-2005|4-2006|5-2007|6-2008|7,width:305-100-100-100-111-144-225-187,sort:STRING-INT-STRING-STRING-STRING-INT-STRING-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:2001|0-2002|1-2003|2-2004|3-2005|4-2006|5-2007|6-2008|7,width:307-100-100-100-111-144-225-187,sort:STRING-INT-STRING-STRING-STRING-INT-STRING-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="2001" trending="false">
@@ -437,7 +432,7 @@
 		<Relation path="1000;2000"/>
 	</Relations>
 	<QActions>
-		<QAction id="3" name="Parse Transport Streams JSON" encoding="csharp" triggers="50;52" options="precompile" />		
+		<QAction id="3" name="Parse Transport Streams JSON" encoding="csharp" triggers="50" options="precompile" />		
 	</QActions>
 	<Groups>
 		<Group id="3">
@@ -452,7 +447,7 @@
 	<Actions>
 		<Action id="3">
 			<Name>Trigger Parse QAction</Name>
-			<On id="52">parameter</On>
+			<On id="50">parameter</On>
 			<Type>run actions</Type>
 		</Action>
 	</Actions>
@@ -469,7 +464,7 @@
 	<VersionHistory>
 		<Branches>
 			<Branch id="1">
-				<Comment>Main Branch</Comment>
+				<Comment>exercise-qactions-tables-dataMiner-amer-mujalo Branch</Comment>
 				<SystemVersions>
 					<SystemVersion id="0">
 						<MajorVersions>
@@ -482,7 +477,7 @@
 											<Company>Skyline Communications</Company>
 										</Provider>
 										<Changes>
-											<NewFeature>Initial version</NewFeature>
+											<NewFeature>Finished Version</NewFeature>
 										</Changes>
 									</MinorVersion>
 								</MinorVersions>
