@@ -221,7 +221,6 @@ public interface SLProtocolExt : SLProtocol
 	ServicesQActionTable services { get; set; }
 	object Forcepoll_50 { get; set; }
 	object Forcepoll { get; set; }
-	object Polltrigger_dummy { get; set; }
 	object Transportstreamsid_1001 { get; set; }
 	object Transportstreamsid { get; set; }
 	object Transportstreamsname_1002 { get; set; }
@@ -264,8 +263,6 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Forcepoll_50 {get { return GetParameter(50); }set { SetParameter(50, value); }}
 	/// <summary>PID: 50  | Type: write | DISCREETS: Force Poll = 1</summary>
 	public System.Object Forcepoll {get { return Write.Forcepoll; }set { Write.Forcepoll = value; }}
-	/// <summary>PID: 52  | Type: dummy</summary>
-	public System.Object Polltrigger_dummy {get { return GetParameter(52); }set { SetParameter(52, value); }}
 	/// <summary>PID: 1001  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Transportstreamsid_1001 {get { return GetParameter(1001); }set { SetParameter(1001, value); }}
