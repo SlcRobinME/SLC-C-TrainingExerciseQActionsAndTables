@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1933745A-6775-457F-8D11-3533111247F9}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		protocol.xml = protocol.xml
 	EndProjectSection
 EndProject
