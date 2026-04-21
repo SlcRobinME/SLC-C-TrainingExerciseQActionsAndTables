@@ -79,12 +79,12 @@
 				<Subtext>All transport streams</Subtext>
 			</Information>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="101" type="retrieved" options=";save"/>
-				<ColumnOption idx="1" pid="102" type="retrieved" options=";save"/>
-				<ColumnOption idx="2" pid="103" type="retrieved" options=";save"/>
-				<ColumnOption idx="3" pid="104" type="retrieved" options=";save"/>
-				<ColumnOption idx="4" pid="105" type="retrieved" options=";save"/>
-				<ColumnOption idx="5" pid="106" type="retrieved" options=";save"/>
+				<ColumnOption idx="0" pid="101" type="retrieved"/>
+				<ColumnOption idx="1" pid="102" type="retrieved"/>
+				<ColumnOption idx="2" pid="103" type="retrieved"/>
+				<ColumnOption idx="3" pid="104" type="retrieved"/>
+				<ColumnOption idx="4" pid="105" type="retrieved"/>
+				<ColumnOption idx="5" pid="106" type="retrieved"/>
 			</ArrayOptions>
 			<Display>
 				<RTDisplay>true</RTDisplay>
@@ -228,13 +228,13 @@
 				<Subtext>Services Table</Subtext>
 			</Information>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="201" type="retrieved" options=";save"/>
-				<ColumnOption idx="1" pid="202" type="retrieved" options=";save"/>
-				<ColumnOption idx="2" pid="203" type="retrieved" options=";save"/>
-				<ColumnOption idx="3" pid="204" type="retrieved" options=";save"/>
-				<ColumnOption idx="4" pid="205" type="retrieved" options=";save"/>
-				<ColumnOption idx="5" pid="206" type="retrieved" options=";save;foreignKey=100"/>
-				<ColumnOption idx="6" pid="207" type="retrieved" options=";save"/>
+				<ColumnOption idx="0" pid="201" type="retrieved"/>
+				<ColumnOption idx="1" pid="202" type="retrieved"/>
+				<ColumnOption idx="2" pid="203" type="retrieved"/>
+				<ColumnOption idx="3" pid="204" type="retrieved"/>
+				<ColumnOption idx="4" pid="205" type="retrieved"/>
+				<ColumnOption idx="5" pid="206" type="retrieved" options=";foreignKey=100"/>
+				<ColumnOption idx="6" pid="207" type="retrieved"/>
 			</ArrayOptions>
 			<Display>
 				<RTDisplay>true</RTDisplay>
