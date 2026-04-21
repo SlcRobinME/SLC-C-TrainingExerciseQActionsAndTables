@@ -8,7 +8,7 @@
 -->
 
 <Protocol xmlns="http://www.skyline.be/protocol">
-	<Name>Excercise QActions And Tables RME</Name>
+	<Name>Excercise QActions And Tables SCO</Name>
 	<Description>Excercise QActions And Tables DataMiner connector</Description>
 	<Version>1.0.0.1</Version>
 	<IntegrationID>DMS-DRV-0001</IntegrationID>
@@ -18,90 +18,528 @@
 	<DeviceOID>1</DeviceOID>
 	<ElementType>Encoder</ElementType>
 	<Type relativeTimers="true">virtual</Type>
-	<Display defaultPage="General" pageOrder="General"/>
+	<Display defaultPage="General" pageOrder="General" wideColumnPages=""/>
 	<SNMP includepages="true">auto</SNMP>
-
 	<Compliancies>
 		<CassandraReady>true</CassandraReady>
 		<MinimumRequiredVersion>10.4.0.0 - 14003</MinimumRequiredVersion>
 	</Compliancies>
-
 	<Params>
 		<Param id="2">
 			<Name>AfterStartup</Name>
 			<Description>After Startup</Description>
 			<Type>dummy</Type>
 		</Param>
+		<Param id="50" setter="true">
+			<Name>PollButton</Name>
+			<Description>Poll Button</Description>
+			<Type>write</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type width="110">button</Type>
+				<Discreets>
+					<Discreet>
+						<Display>Poll Now</Display>
+						<Value>1</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>
+		<!--<Param id="50">
+			<Name>PollTrigger</Name>
+			<Description>Poll Trigger</Description>
+			<Information>
+				<Subtext>Manually triggers an immediate data poll.</Subtext>
+			</Information>
+			<Type>dummy</Type>
+		</Param>-->
+		<!--<Param id="51" trending="false" setter="true">
+			<Name>PollButton</Name>
+			<Description>Poll Button</Description>
+			<Type>write</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Information>
+				<Subtext>Manually triggers an immediate data poll.</Subtext>
+			</Information>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type width="110">button</Type>
+				<Discreets>
+					<Discreet>
+						<Display>Poll Now</Display>
+						<Value>Poll</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>-->
+		<!--<Param id="51" trending="false" setter="true">
+			<Name>PollButton</Name>
+			<Type>write</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type width="110">button</Type>
+				<Discreets>
+					<Discreet>
+						<Display>Poll Now</Display>
+						<Value>1</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>-->
+		<!-- Transport streams table -->
+		<Param id="100" trending="false">
+			<Name>TransportStreams</Name>
+			<Description>Transport Streams Table</Description>
+			<Type>array</Type>
+			<Information>
+				<Subtext>All transport streams</Subtext>
+			</Information>
+			<ArrayOptions index="0">
+				<ColumnOption idx="0" pid="101" type="retrieved" options=";save"/>
+				<ColumnOption idx="1" pid="102" type="retrieved" options=";save"/>
+				<ColumnOption idx="2" pid="103" type="retrieved" options=";save"/>
+				<ColumnOption idx="3" pid="104" type="retrieved" options=";save"/>
+				<ColumnOption idx="4" pid="105" type="retrieved" options=";save"/>
+				<ColumnOption idx="5" pid="106" type="retrieved" options=";save"/>
+			</ArrayOptions>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>1</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="tab=columns:101|0-102|1-103|2-104|3-105|4-106|5,width:147-153-220-172-184-180,sort:STRING-STRING-STRING-STRING-INT-STRING,lines:25,filter:true">table</Type>
+			</Measurement>
+		</Param>
+		<Param id="101" trending="false">
+			<Name>TransportStreamsID</Name>
+			<Description>Transport Stream ID</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Transport Stream ID</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="102" trending="false">
+			<Name>TransportStreamsName</Name>
+			<Description>Transport Stream Name</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Transport Stream Name</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="103" trending="false">
+			<Name>TransportStreamsMulticastAddress</Name>
+			<Description>Transport Stream Multicast Address</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Transport Stream Multicast Address</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>	
+		<Param id="104" trending="false">
+			<Name>TransportStreamsSourceIP</Name>
+			<Description>Transport Stream Source IP</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Transport Stream Source IP</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="105" trending="false">
+			<Name>TransportStreamsNetworkID</Name>
+			<Description>Transport Stream Network ID</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Transport Stream NetworkID</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<Units>Units</Units>
+				<Range>
+					<Low>0</Low>
+					<High>65535</High>
+				</Range>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="106" trending="false">
+			<Name>TransportStreamsLastPolled</Name>
+			<Description>Transport Stream Last Polled</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Transport Stream Last Polled</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type options="datetime">number</Type>
+			</Measurement>
+		</Param>
+		<!-- Services Table -->
+		<Param id="200" trending="false">
+			<Name>Services</Name>
+			<Description>Services</Description>
+			<Type>array</Type>
+			<Information>
+				<Subtext>Services Table</Subtext>
+			</Information>
+			<ArrayOptions index="0">
+				<ColumnOption idx="0" pid="201" type="retrieved" options=";save"/>
+				<ColumnOption idx="1" pid="202" type="retrieved" options=";save"/>
+				<ColumnOption idx="2" pid="203" type="retrieved" options=";save"/>
+				<ColumnOption idx="3" pid="204" type="retrieved" options=";save"/>
+				<ColumnOption idx="4" pid="205" type="retrieved" options=";save"/>
+				<ColumnOption idx="5" pid="206" type="retrieved" options=";save;foreignKey=100"/>
+				<ColumnOption idx="6" pid="207" type="retrieved" options=";save"/>
+			</ArrayOptions>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>2</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="tab=columns:201|0-202|1-203|2-204|3-205|4-206|5-207|6,width:150-150-100-150-101-191-156,sort:STRING-STRING-STRING-STRING-INT-STRING-STRING,lines:25,filter:true">table</Type>
+			</Measurement>
+		</Param>
+		<Param id="201" trending="false">
+			<Name>ServicesID</Name>
+			<Description>Service ID</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Service ID</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="202" trending="false">
+			<Name>ServicesName</Name>
+			<Description>Service Name</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Service Name</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="203" trending="false">
+			<Name>ServicesType</Name>
+			<Description>Service Type</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Service Type</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="204" trending="false">
+			<Name>ServicesProvider</Name>
+			<Description>Service Provider</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Service Provider</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="205" trending="false">
+			<Name>ServicesBitrate</Name>
+			<Description>Service Bitrate</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Service Bitrate</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<Units>Mbps</Units>
+				<Range>
+					<Low>0</Low>
+					<High>100</High>
+				</Range>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+				<Decimals>1</Decimals>
+			</Measurement>
+		</Param>
+		<!--Foreign key-->
+		<Param id="206" trending="false">
+			<Name>ServicesTransportStreamID</Name>
+			<Description>Service Transport Stream ID</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Service Transport Stream ID</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="207" trending="false">
+			<Name>ServicesLastPolled</Name>
+			<Description>Service Last Polled</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Service Last Polled</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type options="datetime">number</Type>
+			</Measurement>
+		</Param>
 	</Params>
-
+	<Relations>
+		<Relation path="100;200"/>
+	</Relations>
 	<QActions>
-		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile" />
-		<QAction id="2" name="After Startup" encoding="csharp" triggers="2" />
+		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile"/>
+		<!--<QAction id="2" name="After Startup" encoding="csharp" triggers="2"/>-->
+		<QAction id="3" name="Poll Data" encoding="csharp" triggers="50" options="precompile:1"/>
+		<!--<QAction id="4" name="Poll Button" encoding="csharp" triggers="51" options="precompile:1" dllImport="..."/>-->
 	</QActions>
-
 	<Groups>
-		<Group id="2">
+		<!--<Group id="300">
 			<Name>After Startup</Name>
 			<Description>After Startup</Description>
 			<Type>poll action</Type>
 			<Content>
-				<Action>2</Action>
+				<Action>501</Action>
+			</Content>
+		</Group>
+		<Group id="301">
+			<Name>Poll Data</Name>
+			<Description>Poll Data</Description>
+			<Type>poll action</Type>
+			<Content>
+				<Action>502</Action>
+			</Content>
+		</Group>-->
+		<Group id="3">
+			<Name>Poll Data</Name>
+			<Description>Poll Data</Description>
+			<Type>poll action</Type>
+			<Content>
+				<Action>3</Action>
 			</Content>
 		</Group>
 	</Groups>
-
 	<Triggers>
-		<Trigger id="1">
+		<!--<Trigger id="400">
 			<Name>After Startup</Name>
 			<On>protocol</On>
 			<Time>after startup</Time>
 			<Type>action</Type>
 			<Content>
-				<Id>1</Id>
+				<Id>500</Id>
 			</Content>
-		</Trigger>
+		</Trigger>-->
+		<!--<Trigger id="401">
+			<Name>Poll Button Trigger</Name>
+			<On id="51">parameter</On>
+			<Time>after set</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>503</Id>
+			</Content>
+		</Trigger>-->
 	</Triggers>
-
 	<Actions>
-		<Action id="1">
+		<!--<Action id="500">
 			<Name>After Startup Group</Name>
-			<On id="2">group</On>
+			<On id="300">group</On>
 			<Type>execute next</Type>
 		</Action>
-		<Action id="2">
+		<Action id="501">
 			<Name>After Startup QAction</Name>
 			<On id="2">parameter</On>
 			<Type>run actions</Type>
 		</Action>
+		<Action id="502">
+			<Name>Poll Data QAction</Name>
+			<On id="50">parameter</On>
+			<Type>run actions</Type>
+		</Action>-->
+		<!--<Action id="503">
+			<Name>Poll Button QAction</Name>
+			<On id="51">parameter</On>
+			<Type>run actions</Type>
+		</Action>-->
+		<Action id="3">
+			<Name>Trigger Poll QAction</Name>
+			<On id="50">parameter</On>
+			<Type>run actions</Type>
+		</Action>
 	</Actions>
-
 	<Timers>
-		<Timer id="1">
-			<Name>Fast Timer (10s)</Name>
-			<Time initial="true">10000</Time>
-			<Interval>75</Interval>
-			<Content>
-			</Content>
-		</Timer>
 		<Timer id="2">
 			<Name>Medium Timer (1m)</Name>
-			<Time initial="true" dataDisplay="30000">60000</Time>
+			<Time initial="true" dataDisplay="60000">60000</Time>
 			<Interval>75</Interval>
 			<Content>
-			</Content>
-		</Timer>
-		<Timer id="3">
-			<Name>Slow Timer (1h)</Name>
-			<Time initial="true">3600000</Time>
-			<Interval>75</Interval>
-			<Content>
+				<Group>3</Group>
 			</Content>
 		</Timer>
 	</Timers>
-
-	<PortSettings>
-	</PortSettings>
-
 	<VersionHistory>
 		<Branches>
 			<Branch id="1">

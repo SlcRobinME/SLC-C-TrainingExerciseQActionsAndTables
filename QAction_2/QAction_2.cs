@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using Skyline.Protocol;
 
 using Skyline.DataMiner.Scripting;
 
@@ -18,11 +19,12 @@ public static class QAction
     {
         try
         {
-
+            protocol.Log("QA2|Run|Start",LogType.Allways,LogLevel.NoLogging);
+            DataPoller.PollData(protocol);
         }
         catch (Exception ex)
         {
-            protocol.Log($"QA{protocol.QActionID}|{protocol.GetTriggerParameter()}|Run|Exception thrown:{Environment.NewLine}{ex}", LogType.Error, LogLevel.NoLogging);
+            protocol.Log($"QA2|Run|Unexpected exception: {ex}",LogType.Error,LogLevel.NoLogging);
         }
     }
 }
