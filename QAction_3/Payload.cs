@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 public class Root
 {
-    public static string JsonPath = @"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json";
+    public static readonly string JsonPath = @"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json";
 
     [JsonProperty("transport_streams")]
     public List<TransportStream> TransportStreams { get; set; }

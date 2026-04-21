@@ -24,7 +24,6 @@ public static class QAction
             string jsonRaw = File.ReadAllText(SecurePath.CreateSecurePath(filePath));
 
             var root = SecureNewtonsoftDeserialization.DeserializeObject<Root>(jsonRaw);
-            protocol.Log($"QAction3|Deserialized root={(root != null ? "OK" : "NULL")}", LogType.Allways, LogLevel.NoLogging);
 
             string lastPolled = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -78,8 +77,6 @@ public static class QAction
 
             protocol.FillArray(Parameter.Transportstreams.tablePid, tsRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
             protocol.FillArray(Parameter.Services.tablePid, svcRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
-
-            protocol.Log("QAction3|Rows successfully added (AddRow)", LogType.Allways, LogLevel.NoLogging);
         }
         catch (Exception ex)
         {

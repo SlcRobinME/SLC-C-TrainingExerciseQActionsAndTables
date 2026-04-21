@@ -63,13 +63,13 @@
 			<Description>Table for Transport Streams</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="1001" type="retrieved" options=";save"/>
-				<ColumnOption idx="1" pid="1002" type="retrieved" options=";save"/>
-				<ColumnOption idx="2" pid="1003" type="retrieved" options=";save"/>
-				<ColumnOption idx="3" pid="1004" type="retrieved" options=";save"/>
-				<ColumnOption idx="4" pid="1005" type="retrieved" options=";save"/>
-				<ColumnOption idx="5" pid="1006" type="retrieved" options=";save"/>
-				<ColumnOption idx="6" pid="1007" type="retrieved" options=";save"/>
+				<ColumnOption idx="0" pid="1001" type="retrieved"/>
+				<ColumnOption idx="1" pid="1002" type="retrieved"/>
+				<ColumnOption idx="2" pid="1003" type="retrieved"/>
+				<ColumnOption idx="3" pid="1004" type="retrieved"/>
+				<ColumnOption idx="4" pid="1005" type="retrieved"/>
+				<ColumnOption idx="5" pid="1006" type="retrieved"/>
+				<ColumnOption idx="6" pid="1007" type="retrieved"/>
 			</ArrayOptions>
 			<Information>
 				<Subtext>Overview of Transport Streams</Subtext>
@@ -90,7 +90,7 @@
 		</Param>
 		<Param id="1001" trending="false">
 			<Name>transportStreamsID</Name>
-			<Description>Transport Identifier of the Transport Stream</Description>
+			<Description>Transport Identifier of the Transport Stream (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Unique identifier of the transport stream</Subtext>
@@ -109,7 +109,7 @@
 		</Param>
 		<Param id="1002" trending="false">
 			<Name>transportStreamsName</Name>
-			<Description>Transport Stream Name</Description>
+			<Description>Transport Stream Name (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Name of the transport stream</Subtext>
@@ -128,7 +128,7 @@
 		</Param>
 		<Param id="1003" trending="false">
 			<Name>transportStreamsMulticast</Name>
-			<Description>Transport Stream Multicast Address</Description>
+			<Description>Transport Stream Multicast Address (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Multicast ip address of the transport stream</Subtext>
@@ -147,7 +147,7 @@
 		</Param>
 		<Param id="1004" trending="false">
 			<Name>transportStreamsIP</Name>
-			<Description>Transport Stream Source IP</Description>
+			<Description>Transport Stream Source IP (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Source IP address of the transport stream</Subtext>
@@ -166,7 +166,7 @@
 		</Param>
 		<Param id="1005" trending="false">
 			<Name>transportStreamsNetworkID</Name>
-			<Description>Transport Stream Network ID</Description>
+			<Description>Transport Stream Network ID (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Network ID of the transport stream</Subtext>
@@ -190,7 +190,7 @@
 		</Param>
 		<Param id="1006" trending="false">
 			<Name>transportStreamsNumberOfServices</Name>
-			<Description>Transport Stream Number of Services</Description>
+			<Description>Transport Stream Number of Services (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Number of services in the transport stream</Subtext>
@@ -214,7 +214,7 @@
 		</Param>
 		<Param id="1007" trending="false">
 			<Name>transportStreamsLastPolled</Name>
-			<Description>Transport Stream Last Polled (Transport Streams)</Description>
+			<Description>Transport Stream Last Polled (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Timestamp of the last poll for the transport stream</Subtext>
@@ -237,15 +237,15 @@
 			<Description>Table for Services Within Transport Stream</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="2001" type="retrieved" options=";save"/>
-				<ColumnOption idx="1" pid="2002" type="retrieved" options=";save"/>
-				<ColumnOption idx="2" pid="2003" type="retrieved" options=";save"/>
-				<ColumnOption idx="3" pid="2004" type="retrieved" options=";save"/>
-				<ColumnOption idx="4" pid="2005" type="retrieved" options=";save"/>
-				<ColumnOption idx="5" pid="2006" type="retrieved" options=";save"/>
-				<ColumnOption idx="6" pid="2007" type="retrieved" options=";save;foreignKey=1000"/>
-				<ColumnOption idx="7" pid="2008" type="retrieved" options=";save"/>
-				<ColumnOption idx="8" pid="2009" type="retrieved" options=";save"/>
+				<ColumnOption idx="0" pid="2001" type="retrieved"/>
+				<ColumnOption idx="1" pid="2002" type="retrieved"/>
+				<ColumnOption idx="2" pid="2003" type="retrieved"/>
+				<ColumnOption idx="3" pid="2004" type="retrieved"/>
+				<ColumnOption idx="4" pid="2005" type="retrieved"/>
+				<ColumnOption idx="5" pid="2006" type="retrieved"/>
+				<ColumnOption idx="6" pid="2007" type="retrieved" options=";foreignKey=1000"/>
+				<ColumnOption idx="7" pid="2008" type="retrieved"/>
+				<ColumnOption idx="8" pid="2009" type="retrieved"/>
 			</ArrayOptions>
 			<Information>
 				<Subtext>Overview of Services per Transport Stream</Subtext>
@@ -266,7 +266,7 @@
 		</Param>
 		<Param id="2001" trending="false">
 			<Name>ServicesInstanceID</Name>
-			<Description>Service Instance ID (Primary Key: Tsid/Serviceid)</Description>
+			<Description>Service Instance ID (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Composite key combining TS ID and Service ID</Subtext>
@@ -285,7 +285,7 @@
 		</Param>
 		<Param id="2002" trending="false">
 			<Name>ServicesID</Name>
-			<Description>Service ID</Description>
+			<Description>Service ID (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Unique identifier of the service</Subtext>
@@ -309,7 +309,7 @@
 		</Param>
 		<Param id="2003" trending="false">
 			<Name>ServicesName</Name>
-			<Description>Service Name</Description>
+			<Description>Service Name (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Name of the service</Subtext>
@@ -328,7 +328,7 @@
 		</Param>
 		<Param id="2004" trending="false">
 			<Name>ServicesType</Name>
-			<Description>Service Type</Description>
+			<Description>Service Type (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Type of the service (e.g. digital_television, digital_radio)</Subtext>
@@ -347,7 +347,7 @@
 		</Param>
 		<Param id="2005" trending="false">
 			<Name>ServicesProvider</Name>
-			<Description>Service Provider</Description>
+			<Description>Service Provider (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Provider of the service</Subtext>
@@ -366,7 +366,7 @@
 		</Param>
 		<Param id="2006" trending="false">
 			<Name>ServicesBitrate</Name>
-			<Description>Service Bitrate (Mbps)</Description>
+			<Description>Service Bitrate (Services Table)</Description>
 			<Type>read</Type>
 			<Interprete>
 				<RawType>other</RawType>
@@ -390,7 +390,7 @@
 		</Param>
 		<Param id="2007" trending="false">
 			<Name>ServicesTransportStreamID</Name>
-			<Description>Foreign Key - Transport Stream ID</Description>
+			<Description>Foreign Key - Transport Stream ID (Services Table)</Description>
 			<Type>read</Type>
 			<Interprete>
 				<RawType>other</RawType>
@@ -409,7 +409,7 @@
 		</Param>
 		<Param id="2008" trending="false">
 			<Name>ServicesLastPolled</Name>
-			<Description>Services Last Polled (Services)</Description>
+			<Description>Services Last Polled (Services Table)</Description>
 			<Type>read</Type>
 			<Interprete>
 				<RawType>other</RawType>
@@ -428,7 +428,7 @@
 		</Param>
 		<Param id="2009" trending="false">
 			<Name>ServicestransportStreamNameService</Name>
-			<Description>Transport Stream Name of Service</Description>
+			<Description>Transport Stream Name of Service (Services Table)</Description>
 			<Type>read</Type>
 			<Interprete>
 				<RawType>other</RawType>
