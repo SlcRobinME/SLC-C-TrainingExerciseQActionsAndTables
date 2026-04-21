@@ -57,8 +57,7 @@ namespace Skyline.Protocol
 
     public static class DataPoller
     {
-        private const string JsonFilePath =
-            @"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json";
+        private const string JsonFilePath =@"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json";
 
         public static void PollData(SLProtocol protocol)
         {
@@ -88,7 +87,7 @@ namespace Skyline.Protocol
                     return;
                 }
 
-                double pollTimestamp = DateTime.Now.ToOADate();
+                string pollTimestamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 
                 var tsRows = new List<object[]>();
                 var svcRows = new List<object[]>();
@@ -123,10 +122,10 @@ namespace Skyline.Protocol
                     }
                 }
 
-                protocol.FillArray(100, tsRows, NotifyProtocol.SaveOption.Full);
+                protocol.FillArray(Parameter.Transportstreams.tablePid, tsRows, NotifyProtocol.SaveOption.Full);
                 protocol.Log("QA|DataPoller|PollData|TS FillArray done", LogType.Allways, LogLevel.NoLogging);
 
-                protocol.FillArray(200, svcRows, NotifyProtocol.SaveOption.Full);
+                protocol.FillArray(Parameter.Services.tablePid, svcRows, NotifyProtocol.SaveOption.Full);
                 protocol.Log("QA|DataPoller|PollData|Services FillArray done", LogType.Allways, LogLevel.NoLogging);
 
             }

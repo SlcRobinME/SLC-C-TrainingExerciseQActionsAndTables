@@ -10,11 +10,11 @@ public static class Parameter
 {
 	public class Write
 	{
-		/// <summary>PID: 50 | Type: write</summary>
+		/// <summary>PID: 51 | Type: write</summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public const int pollbutton_50 = 50;
-		/// <summary>PID: 50 | Type: write</summary>
-		public const int pollbutton = 50;
+		public const int pollbutton_51 = 51;
+		/// <summary>PID: 51 | Type: write</summary>
+		public const int pollbutton = 51;
 	}
 	public class Transportstreams
 	{
@@ -185,8 +185,8 @@ public static class Parameter
 }
 public class WriteParameters
 {
-	/// <summary>PID: 50  | Type: write | DISCREETS: Poll Now = 1</summary>
-	public System.Object Pollbutton {get { return Protocol.GetParameter(50); }set { Protocol.SetParameter(50, value); }}
+	/// <summary>PID: 51  | Type: write | DISCREETS: Poll Now = Poll</summary>
+	public System.Object Pollbutton {get { return Protocol.GetParameter(51); }set { Protocol.SetParameter(51, value); }}
 	public SLProtocolExt Protocol;
 	public WriteParameters(SLProtocolExt protocol)
 	{
@@ -200,7 +200,8 @@ public interface SLProtocolExt : SLProtocol
 	/// <summary>PID: 200</summary>
 	ServicesQActionTable services { get; set; }
 	object Afterstartup_dummy { get; set; }
-	object Pollbutton_50 { get; set; }
+	object Polltrigger_dummy { get; set; }
+	object Pollbutton_51 { get; set; }
 	object Pollbutton { get; set; }
 	object Transportstreamsid_101 { get; set; }
 	object Transportstreamsid { get; set; }
@@ -238,9 +239,11 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public ServicesQActionTable services { get; set; }
 	/// <summary>PID: 2  | Type: dummy</summary>
 	public System.Object Afterstartup_dummy {get { return GetParameter(2); }set { SetParameter(2, value); }}
-	/// <summary>PID: 50  | Type: write | DISCREETS: Poll Now = 1</summary>
-	public System.Object Pollbutton_50 {get { return GetParameter(50); }set { SetParameter(50, value); }}
-	/// <summary>PID: 50  | Type: write | DISCREETS: Poll Now = 1</summary>
+	/// <summary>PID: 50  | Type: dummy</summary>
+	public System.Object Polltrigger_dummy {get { return GetParameter(50); }set { SetParameter(50, value); }}
+	/// <summary>PID: 51  | Type: write | DISCREETS: Poll Now = Poll</summary>
+	public System.Object Pollbutton_51 {get { return GetParameter(51); }set { SetParameter(51, value); }}
+	/// <summary>PID: 51  | Type: write | DISCREETS: Poll Now = Poll</summary>
 	public System.Object Pollbutton {get { return Write.Pollbutton; }set { Write.Pollbutton = value; }}
 	/// <summary>PID: 101  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]

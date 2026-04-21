@@ -30,44 +30,15 @@
 			<Description>After Startup</Description>
 			<Type>dummy</Type>
 		</Param>
-		<Param id="50" setter="true">
-			<Name>PollButton</Name>
-			<Description>Poll Button</Description>
-			<Type>write</Type>
-			<Interprete>
-				<RawType>numeric text</RawType>
-				<Type>double</Type>
-				<LengthType>next param</LengthType>
-			</Interprete>
-			<Display>
-				<RTDisplay>true</RTDisplay>
-				<Positions>
-					<Position>
-						<Page>General</Page>
-						<Column>0</Column>
-						<Row>0</Row>
-					</Position>
-				</Positions>
-			</Display>
-			<Measurement>
-				<Type width="110">button</Type>
-				<Discreets>
-					<Discreet>
-						<Display>Poll Now</Display>
-						<Value>1</Value>
-					</Discreet>
-				</Discreets>
-			</Measurement>
-		</Param>
-		<!--<Param id="50">
+		<Param id="50">
 			<Name>PollTrigger</Name>
 			<Description>Poll Trigger</Description>
 			<Information>
 				<Subtext>Manually triggers an immediate data poll.</Subtext>
 			</Information>
 			<Type>dummy</Type>
-		</Param>-->
-		<!--<Param id="51" trending="false" setter="true">
+		</Param>
+		<Param id="51" trending="false" setter="true">
 			<Name>PollButton</Name>
 			<Description>Poll Button</Description>
 			<Type>write</Type>
@@ -98,35 +69,7 @@
 					</Discreet>
 				</Discreets>
 			</Measurement>
-		</Param>-->
-		<!--<Param id="51" trending="false" setter="true">
-			<Name>PollButton</Name>
-			<Type>write</Type>
-			<Interprete>
-				<RawType>numeric text</RawType>
-				<Type>double</Type>
-				<LengthType>next param</LengthType>
-			</Interprete>
-			<Display>
-				<RTDisplay>true</RTDisplay>
-				<Positions>
-					<Position>
-						<Page>General</Page>
-						<Column>0</Column>
-						<Row>0</Row>
-					</Position>
-				</Positions>
-			</Display>
-			<Measurement>
-				<Type width="110">button</Type>
-				<Discreets>
-					<Discreet>
-						<Display>Poll Now</Display>
-						<Value>1</Value>
-					</Discreet>
-				</Discreets>
-			</Measurement>
-		</Param>-->
+		</Param>
 		<!-- Transport streams table -->
 		<Param id="100" trending="false">
 			<Name>TransportStreams</Name>
@@ -265,15 +208,15 @@
 				<Subtext>Transport Stream Last Polled</Subtext>
 			</Information>
 			<Interprete>
-				<RawType>numeric text</RawType>
-				<Type>double</Type>
+				<RawType>other</RawType>
+				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 			</Display>
 			<Measurement>
-				<Type options="datetime">number</Type>
+				<Type>string</Type>
 			</Measurement>
 		</Param>
 		<!-- Services Table -->
@@ -436,15 +379,15 @@
 				<Subtext>Service Last Polled</Subtext>
 			</Information>
 			<Interprete>
-				<RawType>numeric text</RawType>
-				<Type>double</Type>
+				<RawType>other</RawType>
+				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 			</Display>
 			<Measurement>
-				<Type options="datetime">number</Type>
+				<Type>string</Type>
 			</Measurement>
 		</Param>
 	</Params>
@@ -453,12 +396,12 @@
 	</Relations>
 	<QActions>
 		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile"/>
-		<!--<QAction id="2" name="After Startup" encoding="csharp" triggers="2"/>-->
-		<QAction id="3" name="Poll Data" encoding="csharp" triggers="50" options="precompile:1"/>
-		<!--<QAction id="4" name="Poll Button" encoding="csharp" triggers="51" options="precompile:1" dllImport="..."/>-->
+		<QAction id="2" name="After Startup" encoding="csharp" triggers="2"/>
+		<QAction id="3" name="Poll Data" encoding="csharp" triggers="50"/>
+		<QAction id="4" name="Poll Button" encoding="csharp" triggers="51"/>
 	</QActions>
 	<Groups>
-		<!--<Group id="300">
+		<Group id="300">
 			<Name>After Startup</Name>
 			<Description>After Startup</Description>
 			<Type>poll action</Type>
@@ -473,18 +416,10 @@
 			<Content>
 				<Action>502</Action>
 			</Content>
-		</Group>-->
-		<Group id="3">
-			<Name>Poll Data</Name>
-			<Description>Poll Data</Description>
-			<Type>poll action</Type>
-			<Content>
-				<Action>3</Action>
-			</Content>
 		</Group>
 	</Groups>
 	<Triggers>
-		<!--<Trigger id="400">
+		<Trigger id="400">
 			<Name>After Startup</Name>
 			<On>protocol</On>
 			<Time>after startup</Time>
@@ -492,19 +427,19 @@
 			<Content>
 				<Id>500</Id>
 			</Content>
-		</Trigger>-->
-		<!--<Trigger id="401">
+		</Trigger>
+		<Trigger id="401">
 			<Name>Poll Button Trigger</Name>
 			<On id="51">parameter</On>
-			<Time>after set</Time>
+			<Time>change</Time>
 			<Type>action</Type>
 			<Content>
 				<Id>503</Id>
 			</Content>
-		</Trigger>-->
+		</Trigger>
 	</Triggers>
 	<Actions>
-		<!--<Action id="500">
+		<Action id="500">
 			<Name>After Startup Group</Name>
 			<On id="300">group</On>
 			<Type>execute next</Type>
@@ -518,25 +453,20 @@
 			<Name>Poll Data QAction</Name>
 			<On id="50">parameter</On>
 			<Type>run actions</Type>
-		</Action>-->
-		<!--<Action id="503">
+		</Action>
+		<Action id="503">
 			<Name>Poll Button QAction</Name>
 			<On id="51">parameter</On>
-			<Type>run actions</Type>
-		</Action>-->
-		<Action id="3">
-			<Name>Trigger Poll QAction</Name>
-			<On id="50">parameter</On>
 			<Type>run actions</Type>
 		</Action>
 	</Actions>
 	<Timers>
 		<Timer id="2">
 			<Name>Medium Timer (1m)</Name>
-			<Time initial="true" dataDisplay="60000">60000</Time>
+			<Time dataDisplay="60000">60000</Time>
 			<Interval>75</Interval>
 			<Content>
-				<Group>3</Group>
+				<Group>301</Group>
 			</Content>
 		</Timer>
 	</Timers>
@@ -550,13 +480,13 @@
 							<MajorVersion id="0">
 								<MinorVersions>
 									<MinorVersion id="1">
-										<Date>2024-01-09</Date>
+										<Date>2026-04-21</Date>
 										<Provider>
-											<Author>XXX</Author>
+											<Author>SCO</Author>
 											<Company>Skyline Communications</Company>
 										</Provider>
 										<Changes>
-											<NewFeature>Initial version</NewFeature>
+											<NewFeature>Initial version - JSON polling connector with Transport Streams and Services tables.</NewFeature>
 										</Changes>
 									</MinorVersion>
 								</MinorVersions>
@@ -567,5 +497,4 @@
 			</Branch>
 		</Branches>
 	</VersionHistory>
-
 </Protocol>
