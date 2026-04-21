@@ -71,7 +71,7 @@
 			</Measurement>
 		</Param>
 		<!-- Transport streams table -->
-		<Param id="100" trending="false">
+		<Param id="1000" trending="false">
 			<Name>TransportStreams</Name>
 			<Description>Transport Streams Table</Description>
 			<Type>array</Type>
@@ -79,12 +79,12 @@
 				<Subtext>All transport streams</Subtext>
 			</Information>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="101" type="retrieved"/>
-				<ColumnOption idx="1" pid="102" type="retrieved"/>
-				<ColumnOption idx="2" pid="103" type="retrieved"/>
-				<ColumnOption idx="3" pid="104" type="retrieved"/>
-				<ColumnOption idx="4" pid="105" type="retrieved"/>
-				<ColumnOption idx="5" pid="106" type="retrieved"/>
+				<ColumnOption idx="0" pid="1001" type="retrieved"/>
+				<ColumnOption idx="1" pid="1002" type="retrieved"/>
+				<ColumnOption idx="2" pid="1003" type="retrieved"/>
+				<ColumnOption idx="3" pid="1004" type="retrieved"/>
+				<ColumnOption idx="4" pid="1005" type="retrieved"/>
+				<ColumnOption idx="5" pid="1006" type="retrieved"/>
 			</ArrayOptions>
 			<Display>
 				<RTDisplay>true</RTDisplay>
@@ -97,10 +97,10 @@
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:101|0-102|1-103|2-104|3-105|4-106|5,width:147-153-220-172-184-180,sort:STRING-STRING-STRING-STRING-INT-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:1001|0-1002|1-1003|2-1004|3-1005|4-1006|5,width:147-153-220-172-184-180,sort:STRING-STRING-STRING-STRING-INT-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
-		<Param id="101" trending="false">
+		<Param id="1001" trending="false">
 			<Name>TransportStreamsID</Name>
 			<Description>Transport Stream ID (Transport Streams Table)</Description>
 			<Type>read</Type>
@@ -119,7 +119,7 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="102" trending="false">
+		<Param id="1002" trending="false">
 			<Name>TransportStreamsName</Name>
 			<Description>Transport Stream Name (Transport Streams Table)</Description>
 			<Type>read</Type>
@@ -138,7 +138,7 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="103" trending="false">
+		<Param id="1003" trending="false">
 			<Name>TransportStreamsMulticastAddress</Name>
 			<Description>Transport Stream Multicast Address (Transport Streams Table)</Description>
 			<Type>read</Type>
@@ -157,7 +157,7 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>	
-		<Param id="104" trending="false">
+		<Param id="1004" trending="false">
 			<Name>TransportStreamsSourceIP</Name>
 			<Description>Transport Stream Source IP (Transport Streams Table)</Description>
 			<Type>read</Type>
@@ -176,7 +176,7 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="105" trending="false">
+		<Param id="1005" trending="false">
 			<Name>TransportStreamsNetworkID</Name>
 			<Description>Transport Stream Network ID (Transport Streams Table)</Description>
 			<Type>read</Type>
@@ -200,7 +200,7 @@
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="106" trending="false">
+		<Param id="1006" trending="false">
 			<Name>TransportStreamsLastPolled</Name>
 			<Description>Transport Stream Last Polled (Transport Streams Table)</Description>
 			<Type>read</Type>
@@ -220,7 +220,7 @@
 			</Measurement>
 		</Param>
 		<!-- Services Table -->
-		<Param id="200" trending="false">
+		<Param id="2000" trending="false">
 			<Name>Services</Name>
 			<Description>Services</Description>
 			<Type>array</Type>
@@ -228,13 +228,13 @@
 				<Subtext>Services Table</Subtext>
 			</Information>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="201" type="retrieved"/>
-				<ColumnOption idx="1" pid="202" type="retrieved"/>
-				<ColumnOption idx="2" pid="203" type="retrieved"/>
-				<ColumnOption idx="3" pid="204" type="retrieved"/>
-				<ColumnOption idx="4" pid="205" type="retrieved"/>
-				<ColumnOption idx="5" pid="206" type="retrieved" options=";foreignKey=100"/>
-				<ColumnOption idx="6" pid="207" type="retrieved"/>
+				<ColumnOption idx="0" pid="2001" type="retrieved"/>
+				<ColumnOption idx="1" pid="2002" type="retrieved"/>
+				<ColumnOption idx="2" pid="2003" type="retrieved"/>
+				<ColumnOption idx="3" pid="2004" type="retrieved"/>
+				<ColumnOption idx="4" pid="2005" type="retrieved"/>
+				<ColumnOption idx="5" pid="2006" type="retrieved" options=";foreignKey=100"/>
+				<ColumnOption idx="6" pid="2007" type="retrieved"/>
 			</ArrayOptions>
 			<Display>
 				<RTDisplay>true</RTDisplay>
@@ -247,10 +247,10 @@
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:201|0-202|1-203|2-204|3-205|4-206|5-207|6,width:150-150-100-150-101-191-156,sort:STRING-STRING-STRING-STRING-INT-STRING-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:2001|0-2002|1-2003|2-2004|3-2005|4-2006|5-2007|6,width:150-150-100-150-101-191-156,sort:STRING-STRING-STRING-STRING-INT-STRING-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
-		<Param id="201" trending="false">
+		<Param id="2001" trending="false">
 			<Name>ServicesID</Name>
 			<Description>Service ID (Services Table)</Description>
 			<Type>read</Type>
@@ -269,7 +269,7 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="202" trending="false">
+		<Param id="2002" trending="false">
 			<Name>ServicesName</Name>
 			<Description>Service Name (Services Table)</Description>
 			<Type>read</Type>
@@ -288,7 +288,7 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="203" trending="false">
+		<Param id="2003" trending="false">
 			<Name>ServicesType</Name>
 			<Description>Service Type (Services Table)</Description>
 			<Type>read</Type>
@@ -307,7 +307,7 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="204" trending="false">
+		<Param id="2004" trending="false">
 			<Name>ServicesProvider</Name>
 			<Description>Service Provider (Services Table)</Description>
 			<Type>read</Type>
@@ -326,7 +326,7 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="205" trending="false">
+		<Param id="2005" trending="true">
 			<Name>ServicesBitrate</Name>
 			<Description>Service Bitrate (Services Table)</Description>
 			<Type>read</Type>
@@ -346,13 +346,16 @@
 				</Range>
 				<RTDisplay>true</RTDisplay>
 			</Display>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Measurement>
 				<Type>number</Type>
 				<Decimals>1</Decimals>
 			</Measurement>
 		</Param>
 		<!--Foreign key-->
-		<Param id="206" trending="false">
+		<Param id="2006" trending="false">
 			<Name>ServicesTransportStreamID</Name>
 			<Description>Service Transport Stream ID (Services Table)</Description>
 			<Type>read</Type>
@@ -371,7 +374,7 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="207" trending="false">
+		<Param id="2007" trending="false">
 			<Name>ServicesLastPolled</Name>
 			<Description>Service Last Polled (Services Table)</Description>
 			<Type>read</Type>
