@@ -69,7 +69,7 @@ public static class QAction
                         Servicesbitrate_2006 = svc.ServiceBitrate <= 0 ? Math.Round(rng.NextDouble() * maxBitrate, decimals) : svc.ServiceBitrate,
                         Servicestransportstreamid_2007 = tsKey,
                         Serviceslastpolled_2008 = lastPolled,
-                        Transportstreamnameservice_2009 = ts.TsName,
+                        Servicestransportstreamnameservice_2009 = ts.TsName,
                     });
 
                     // protocol.SetRow(Parameter.Services.tablePid, svcKey, svcRows.Last().ToObjectArray());

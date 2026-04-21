@@ -427,7 +427,7 @@
 			</Measurement>
 		</Param>
 		<Param id="2009" trending="false">
-			<Name>transportStreamNameService</Name>
+			<Name>ServicestransportStreamNameService</Name>
 			<Description>Transport Stream Name of Service</Description>
 			<Type>read</Type>
 			<Interprete>
