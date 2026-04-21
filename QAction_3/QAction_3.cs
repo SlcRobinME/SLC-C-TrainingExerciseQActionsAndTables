@@ -31,7 +31,11 @@ public static class QAction
             var tsRows = new List<TransportstreamsQActionRow>();
             var svcRows = new List<ServicesQActionRow>();
 
+            // Generate random bitrate for services with missing or zero bitrate, to better visualize them in the UI.
+            // Remove this logic if not needed.
             Random rng = new Random();
+            double maxBitrate = 15;
+            int decimals = 3;
 
             foreach (var ts in root.TransportStreams)
             {
@@ -62,9 +66,10 @@ public static class QAction
                         Servicesname_2003 = svc.ServiceName,
                         Servicestype_2004 = svc.ServiceType,
                         Servicesprovider_2005 = svc.ServiceProvider,
-                        Servicesbitrate_2006 = svc.ServiceBitrate <= 0 ? Math.Round(rng.NextDouble() * 15, 3) : svc.ServiceBitrate,
+                        Servicesbitrate_2006 = svc.ServiceBitrate <= 0 ? Math.Round(rng.NextDouble() * maxBitrate, decimals) : svc.ServiceBitrate,
                         Servicestransportstreamid_2007 = tsKey,
                         Serviceslastpolled_2008 = lastPolled,
+                        Transportstreamnameservice_2009 = ts.TsName,
                     });
 
                     // protocol.SetRow(Parameter.Services.tablePid, svcKey, svcRows.Last().ToObjectArray());

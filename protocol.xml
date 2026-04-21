@@ -20,12 +20,10 @@
 	<Type relativeTimers="true">virtual</Type>
 	<Display defaultPage="General" pageOrder="General" wideColumnPages=""/>
 	<SNMP includepages="true">auto</SNMP>
-
 	<Compliancies>
 		<CassandraReady>true</CassandraReady>
 		<MinimumRequiredVersion>10.4.0.0 - 14003</MinimumRequiredVersion>
 	</Compliancies>
-
 	<Params>
 		<Param id="50" setter="true">
 			<Name>ForcePoll</Name>
@@ -65,13 +63,13 @@
 			<Description>Table for Transport Streams</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="1001" type="retrieved" options=""/>
-				<ColumnOption idx="1" pid="1002" type="retrieved" options=""/>
-				<ColumnOption idx="2" pid="1003" type="retrieved" options=""/>
-				<ColumnOption idx="3" pid="1004" type="retrieved" options=""/>
-				<ColumnOption idx="4" pid="1005" type="retrieved" options=""/>
-				<ColumnOption idx="5" pid="1006" type="retrieved" options=""/>
-				<ColumnOption idx="6" pid="1007" type="retrieved" options=""/>
+				<ColumnOption idx="0" pid="1001" type="retrieved" options=";save"/>
+				<ColumnOption idx="1" pid="1002" type="retrieved" options=";save"/>
+				<ColumnOption idx="2" pid="1003" type="retrieved" options=";save"/>
+				<ColumnOption idx="3" pid="1004" type="retrieved" options=";save"/>
+				<ColumnOption idx="4" pid="1005" type="retrieved" options=";save"/>
+				<ColumnOption idx="5" pid="1006" type="retrieved" options=";save"/>
+				<ColumnOption idx="6" pid="1007" type="retrieved" options=";save"/>
 			</ArrayOptions>
 			<Information>
 				<Subtext>Overview of Transport Streams</Subtext>
@@ -180,7 +178,7 @@
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
-				<Units>Units</Units>
+				<Units>Services</Units>
 				<Range>
 					<Low>0</Low>
 					<High>9999</High>
@@ -239,14 +237,15 @@
 			<Description>Table for Services Within Transport Stream</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="2001" type="retrieved" options=""/>
-				<ColumnOption idx="1" pid="2002" type="retrieved" options=""/>
-				<ColumnOption idx="2" pid="2003" type="retrieved" options=""/>
-				<ColumnOption idx="3" pid="2004" type="retrieved" options=""/>
-				<ColumnOption idx="4" pid="2005" type="retrieved" options=""/>
-				<ColumnOption idx="5" pid="2006" type="retrieved" options=""/>
-				<ColumnOption idx="6" pid="2007" type="retrieved" options=";foreignKey=1000"/>
-				<ColumnOption idx="7" pid="2008" type="retrieved" options=""/>
+				<ColumnOption idx="0" pid="2001" type="retrieved" options=";save"/>
+				<ColumnOption idx="1" pid="2002" type="retrieved" options=";save"/>
+				<ColumnOption idx="2" pid="2003" type="retrieved" options=";save"/>
+				<ColumnOption idx="3" pid="2004" type="retrieved" options=";save"/>
+				<ColumnOption idx="4" pid="2005" type="retrieved" options=";save"/>
+				<ColumnOption idx="5" pid="2006" type="retrieved" options=";save"/>
+				<ColumnOption idx="6" pid="2007" type="retrieved" options=";save;foreignKey=1000"/>
+				<ColumnOption idx="7" pid="2008" type="retrieved" options=";save"/>
+				<ColumnOption idx="8" pid="2009" type="retrieved" options=";save"/>
 			</ArrayOptions>
 			<Information>
 				<Subtext>Overview of Services per Transport Stream</Subtext>
@@ -262,7 +261,7 @@
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:2001|0-2002|1-2003|2-2004|3-2005|4-2006|5-2007|6-2008|7,width:307-100-100-100-111-144-225-187,sort:STRING-INT-STRING-STRING-STRING-INT-STRING-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:2001|0-2002|1-2003|2-2004|3-2005|4-2006|5-2008|7-2009|8,width:307-100-100-100-111-144-187-212,sort:STRING-INT-STRING-STRING-STRING-INT-STRING-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="2001" trending="false">
@@ -298,7 +297,7 @@
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
-				<Units>Units</Units>
+				<Units>Services</Units>
 				<Range>
 					<Low>0</Low>
 					<High>99999</High>
@@ -427,6 +426,25 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>
+		<Param id="2009" trending="false">
+			<Name>transportStreamNameService</Name>
+			<Description>Transport Stream Name of Service</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Information>
+				<Subtext>Name of the Transport Stream Name of the Service</Subtext>
+			</Information>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
 	</Params>
 	<Relations>
 		<Relation path="1000;2000"/>
@@ -488,5 +506,4 @@
 			</Branch>
 		</Branches>
 	</VersionHistory>
-
 </Protocol>
