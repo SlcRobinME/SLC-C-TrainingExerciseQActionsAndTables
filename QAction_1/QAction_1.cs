@@ -5,10 +5,7 @@ namespace Skyline.Protocol
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using Skyline.DataMiner.Utils.SecureCoding.SecureSerialization.Json.Newtonsoft;
-    using System.Collections.Generic;
-
 
     public class TransportStreamRoot
     {
@@ -63,23 +60,13 @@ namespace Skyline.Protocol
         {
             try
             {
-                protocol.Log("QA|DataPoller|PollData|Start", LogType.Allways, LogLevel.NoLogging);
-
                 if (!File.Exists(JsonFilePath))
                 {
                     protocol.Log($"QA|DataPoller|PollData|File not found: {JsonFilePath}", LogType.Error, LogLevel.NoLogging);
                     return;
                 }
-
-                protocol.Log("QA|DataPoller|PollData|File found", LogType.Allways, LogLevel.NoLogging);
-
                 string jsonContent = File.ReadAllText(JsonFilePath);
-                protocol.Log($"QA|DataPoller|PollData|JSON content: {jsonContent}", LogType.Allways, LogLevel.NoLogging);
-
                 var root = SecureNewtonsoftDeserialization.DeserializeObject<TransportStreamRoot>(jsonContent);
-
-
-                protocol.Log($"QA|DataPoller|PollData|TS count: {root?.TransportStreams?.Count ?? -1}", LogType.Allways, LogLevel.NoLogging);
 
                 if (root?.TransportStreams == null || root.TransportStreams.Count == 0)
                 {
@@ -96,7 +83,7 @@ namespace Skyline.Protocol
                 {
                     tsRows.Add(new object[]
                     {
-                        Convert.ToString(ts.TsId),
+                        ts.TsId.ToString(),
                         ts.TsName,
                         ts.Multicast,
                         ts.SourceIp,
@@ -116,18 +103,13 @@ namespace Skyline.Protocol
                             service.ServiceType,
                             service.ServiceProvider,
                             service.ServiceBitrate,
-                            Convert.ToString(ts.TsId),
+                            ts.TsId.ToString(),
                             pollTimestamp
                         });
                     }
                 }
-
                 protocol.FillArray(Parameter.Transportstreams.tablePid, tsRows, NotifyProtocol.SaveOption.Full);
-                protocol.Log("QA|DataPoller|PollData|TS FillArray done", LogType.Allways, LogLevel.NoLogging);
-
                 protocol.FillArray(Parameter.Services.tablePid, svcRows, NotifyProtocol.SaveOption.Full);
-                protocol.Log("QA|DataPoller|PollData|Services FillArray done", LogType.Allways, LogLevel.NoLogging);
-
             }
             catch (Exception ex)
             {

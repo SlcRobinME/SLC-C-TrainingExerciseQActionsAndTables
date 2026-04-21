@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using Skyline.Protocol;
 using Skyline.DataMiner.Scripting;
-using Skyline.DataMiner.Utils.Protocol.Extension;
+
 
 /// <summary>
 /// DataMiner QAction Class.
@@ -12,14 +9,13 @@ using Skyline.DataMiner.Utils.Protocol.Extension;
 public static class QAction
 {
 	/// <summary>
-	/// The QAction entry point.
+	/// Timer poll.
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
-	public static void Run(SLProtocolExt protocol)
+	public static void Run(SLProtocol protocol)
 	{
 		try
 		{
-            protocol.Log($"QA3|Running", LogType.Allways, LogLevel.NoLogging);
             DataPoller.PollData(protocol);
         }
         catch (Exception ex)

@@ -30,7 +30,7 @@
 			<Description>After Startup</Description>
 			<Type>dummy</Type>
 		</Param>
-		<Param id="50">
+		<Param id="3">
 			<Name>PollTrigger</Name>
 			<Description>Poll Trigger</Description>
 			<Information>
@@ -102,7 +102,7 @@
 		</Param>
 		<Param id="101" trending="false">
 			<Name>TransportStreamsID</Name>
-			<Description>Transport Stream ID</Description>
+			<Description>Transport Stream ID (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Transport Stream ID</Subtext>
@@ -121,7 +121,7 @@
 		</Param>
 		<Param id="102" trending="false">
 			<Name>TransportStreamsName</Name>
-			<Description>Transport Stream Name</Description>
+			<Description>Transport Stream Name (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Transport Stream Name</Subtext>
@@ -140,7 +140,7 @@
 		</Param>
 		<Param id="103" trending="false">
 			<Name>TransportStreamsMulticastAddress</Name>
-			<Description>Transport Stream Multicast Address</Description>
+			<Description>Transport Stream Multicast Address (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Transport Stream Multicast Address</Subtext>
@@ -159,7 +159,7 @@
 		</Param>	
 		<Param id="104" trending="false">
 			<Name>TransportStreamsSourceIP</Name>
-			<Description>Transport Stream Source IP</Description>
+			<Description>Transport Stream Source IP (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Transport Stream Source IP</Subtext>
@@ -178,7 +178,7 @@
 		</Param>
 		<Param id="105" trending="false">
 			<Name>TransportStreamsNetworkID</Name>
-			<Description>Transport Stream Network ID</Description>
+			<Description>Transport Stream Network ID (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Transport Stream NetworkID</Subtext>
@@ -202,7 +202,7 @@
 		</Param>
 		<Param id="106" trending="false">
 			<Name>TransportStreamsLastPolled</Name>
-			<Description>Transport Stream Last Polled</Description>
+			<Description>Transport Stream Last Polled (Transport Streams Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Transport Stream Last Polled</Subtext>
@@ -252,7 +252,7 @@
 		</Param>
 		<Param id="201" trending="false">
 			<Name>ServicesID</Name>
-			<Description>Service ID</Description>
+			<Description>Service ID (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Service ID</Subtext>
@@ -271,7 +271,7 @@
 		</Param>
 		<Param id="202" trending="false">
 			<Name>ServicesName</Name>
-			<Description>Service Name</Description>
+			<Description>Service Name (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Service Name</Subtext>
@@ -290,7 +290,7 @@
 		</Param>
 		<Param id="203" trending="false">
 			<Name>ServicesType</Name>
-			<Description>Service Type</Description>
+			<Description>Service Type (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Service Type</Subtext>
@@ -309,7 +309,7 @@
 		</Param>
 		<Param id="204" trending="false">
 			<Name>ServicesProvider</Name>
-			<Description>Service Provider</Description>
+			<Description>Service Provider (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Service Provider</Subtext>
@@ -328,7 +328,7 @@
 		</Param>
 		<Param id="205" trending="false">
 			<Name>ServicesBitrate</Name>
-			<Description>Service Bitrate</Description>
+			<Description>Service Bitrate (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Service Bitrate</Subtext>
@@ -354,7 +354,7 @@
 		<!--Foreign key-->
 		<Param id="206" trending="false">
 			<Name>ServicesTransportStreamID</Name>
-			<Description>Service Transport Stream ID</Description>
+			<Description>Service Transport Stream ID (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Service Transport Stream ID</Subtext>
@@ -373,7 +373,7 @@
 		</Param>
 		<Param id="207" trending="false">
 			<Name>ServicesLastPolled</Name>
-			<Description>Service Last Polled</Description>
+			<Description>Service Last Polled (Services Table)</Description>
 			<Type>read</Type>
 			<Information>
 				<Subtext>Service Last Polled</Subtext>
@@ -397,7 +397,7 @@
 	<QActions>
 		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile"/>
 		<QAction id="2" name="After Startup" encoding="csharp" triggers="2"/>
-		<QAction id="3" name="Poll Data" encoding="csharp" triggers="50"/>
+		<QAction id="3" name="Poll Data" encoding="csharp" triggers="3"/>
 		<QAction id="4" name="Poll Button" encoding="csharp" triggers="51"/>
 	</QActions>
 	<Groups>
@@ -451,7 +451,7 @@
 		</Action>
 		<Action id="502">
 			<Name>Poll Data QAction</Name>
-			<On id="50">parameter</On>
+			<On id="3">parameter</On>
 			<Type>run actions</Type>
 		</Action>
 		<Action id="503">
@@ -463,7 +463,7 @@
 	<Timers>
 		<Timer id="2">
 			<Name>Medium Timer (1m)</Name>
-			<Time dataDisplay="60000">60000</Time>
+			<Time>60000</Time>
 			<Interval>75</Interval>
 			<Content>
 				<Group>301</Group>

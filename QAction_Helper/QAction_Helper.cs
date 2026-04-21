@@ -239,8 +239,8 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public ServicesQActionTable services { get; set; }
 	/// <summary>PID: 2  | Type: dummy</summary>
 	public System.Object Afterstartup_dummy {get { return GetParameter(2); }set { SetParameter(2, value); }}
-	/// <summary>PID: 50  | Type: dummy</summary>
-	public System.Object Polltrigger_dummy {get { return GetParameter(50); }set { SetParameter(50, value); }}
+	/// <summary>PID: 3  | Type: dummy</summary>
+	public System.Object Polltrigger_dummy {get { return GetParameter(3); }set { SetParameter(3, value); }}
 	/// <summary>PID: 51  | Type: write | DISCREETS: Poll Now = Poll</summary>
 	public System.Object Pollbutton_51 {get { return GetParameter(51); }set { SetParameter(51, value); }}
 	/// <summary>PID: 51  | Type: write | DISCREETS: Poll Now = Poll</summary>
