@@ -233,8 +233,9 @@
 				<ColumnOption idx="2" pid="2003" type="retrieved"/>
 				<ColumnOption idx="3" pid="2004" type="retrieved"/>
 				<ColumnOption idx="4" pid="2005" type="retrieved"/>
-				<ColumnOption idx="5" pid="2006" type="retrieved" options=";foreignKey=100"/>
-				<ColumnOption idx="6" pid="2007" type="retrieved"/>
+				<ColumnOption idx="5" pid="2006" type="retrieved"/>
+				<ColumnOption idx="6" pid="2007" type="retrieved" options=";foreignKey=1000"/>
+				<ColumnOption idx="7" pid="2008" type="retrieved"/>
 			</ArrayOptions>
 			<Display>
 				<RTDisplay>true</RTDisplay>
@@ -247,7 +248,7 @@
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:2001|0-2002|1-2003|2-2004|3-2005|4-2006|5-2007|6,width:150-150-100-150-101-191-156,sort:STRING-STRING-STRING-STRING-INT-STRING-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:2001|0-2002|1-2003|2-2004|3-2005|4-2006|5-2007|6-2008|7,width:150-150-100-150-101-191-156-150,sort:STRING-STRING-STRING-STRING-INT-STRING-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="2001" trending="false">
@@ -354,8 +355,27 @@
 				<Decimals>1</Decimals>
 			</Measurement>
 		</Param>
+		<Param id="2006">
+			<Name>ServicesTransportStreamName</Name>
+			<Description>Service Transport Stream Name (Services Table)</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Service Transport Stream Name</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
 		<!--Foreign key-->
-		<Param id="2006" trending="false">
+		<Param id="2007" trending="false">
 			<Name>ServicesTransportStreamID</Name>
 			<Description>Service Transport Stream ID (Services Table)</Description>
 			<Type>read</Type>
@@ -374,7 +394,7 @@
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="2007" trending="false">
+		<Param id="2008" trending="false">
 			<Name>ServicesLastPolled</Name>
 			<Description>Service Last Polled (Services Table)</Description>
 			<Type>read</Type>
@@ -395,7 +415,7 @@
 		</Param>
 	</Params>
 	<Relations>
-		<Relation path="100;200"/>
+		<Relation path="1000;2000"/>
 	</Relations>
 	<QActions>
 		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile"/>

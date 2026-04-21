@@ -58,6 +58,7 @@ namespace Skyline.Protocol
                             Servicestype = service.ServiceType,
                             Servicesprovider = service.ServiceProvider,
                             Servicesbitrate = service.ServiceBitrate,
+                            Servicestransportstreamname = ts.TsName,
                             Servicestransportstreamid = ts.TsId.ToString(),
                             Serviceslastpolled = pollTimestamp,
                         });
