@@ -1,62 +1,17 @@
 namespace Skyline.Protocol
 {
-    using Newtonsoft.Json;
     using Skyline.DataMiner.Scripting;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using Skyline.DataMiner.Utils.SecureCoding.SecureSerialization.Json.Newtonsoft;
-
-    public class TransportStreamRoot
-    {
-        [JsonProperty("transport_streams")]
-        public List<TransportStreamModel> TransportStreams { get; set; }
-    }
-
-    public class TransportStreamModel
-    {
-        [JsonProperty("ts_id")]
-        public int TsId { get; set; }
-
-        [JsonProperty("ts_name")]
-        public string TsName { get; set; }
-
-        [JsonProperty("multicast")]
-        public string Multicast { get; set; }
-
-        [JsonProperty("sourceIp")]
-        public string SourceIp { get; set; }
-
-        [JsonProperty("network_id")]
-        public int NetworkId { get; set; }
-
-        [JsonProperty("services")]
-        public List<ServiceModel> Services { get; set; }
-    }
-
-    public class ServiceModel
-    {
-        [JsonProperty("service_id")]
-        public int ServiceId { get; set; }
-
-        [JsonProperty("service_name")]
-        public string ServiceName { get; set; }
-
-        [JsonProperty("service_type")]
-        public string ServiceType { get; set; }
-
-        [JsonProperty("service_provider")]
-        public string ServiceProvider { get; set; }
-
-        [JsonProperty("service_bitrate")]
-        public double ServiceBitrate { get; set; }
-    }
+    using System.Linq;
 
     public static class DataPoller
     {
         private const string JsonFilePath =@"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json";
 
-        public static void PollData(SLProtocol protocol)
+        public static void PollData(SLProtocolExt protocol)
         {
             try
             {
@@ -76,19 +31,19 @@ namespace Skyline.Protocol
 
                 string pollTimestamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 
-                var tsRows = new List<object[]>();
-                var svcRows = new List<object[]>();
+                var tsRows = new List<TransportstreamsQActionRow>();
+                var svcRows = new List<ServicesQActionRow>();
 
                 foreach (TransportStreamModel ts in root.TransportStreams)
                 {
-                    tsRows.Add(new object[]
+                    tsRows.Add(new TransportstreamsQActionRow
                     {
-                        ts.TsId.ToString(),
-                        ts.TsName,
-                        ts.Multicast,
-                        ts.SourceIp,
-                        (double)ts.NetworkId,
-                        pollTimestamp,
+                        Transportstreamsid = ts.TsId.ToString(),
+                        Transportstreamsname = ts.TsName,
+                        Transportstreamsmulticastaddress = ts.Multicast,
+                        Transportstreamssourceip = ts.SourceIp,
+                        Transportstreamsnetworkid = (double)ts.NetworkId,
+                        Transportstreamslastpolled = pollTimestamp,
                     });
 
                     if (ts.Services == null)
@@ -96,20 +51,20 @@ namespace Skyline.Protocol
 
                     foreach (ServiceModel service in ts.Services)
                     {
-                        svcRows.Add(new object[]
+                        svcRows.Add(new ServicesQActionRow
                         {
-                            $"{ts.TsId}/{service.ServiceId}",
-                            service.ServiceName,
-                            service.ServiceType,
-                            service.ServiceProvider,
-                            service.ServiceBitrate,
-                            ts.TsId.ToString(),
-                            pollTimestamp
+                            Servicesid = $"{ts.TsId}/{service.ServiceId}",
+                            Servicesname = service.ServiceName,
+                            Servicestype = service.ServiceType,
+                            Servicesprovider = service.ServiceProvider,
+                            Servicesbitrate = service.ServiceBitrate,
+                            Servicestransportstreamid = ts.TsId.ToString(),
+                            Serviceslastpolled = pollTimestamp,
                         });
                     }
                 }
-                protocol.FillArray(Parameter.Transportstreams.tablePid, tsRows, NotifyProtocol.SaveOption.Full);
-                protocol.FillArray(Parameter.Services.tablePid, svcRows, NotifyProtocol.SaveOption.Full);
+                protocol.FillArray(Parameter.Transportstreams.tablePid, tsRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
+                protocol.FillArray(Parameter.Services.tablePid, svcRows.Select(r => r.ToObjectArray()).ToList(), NotifyProtocol.SaveOption.Full);
             }
             catch (Exception ex)
             {
