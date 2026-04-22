@@ -25,15 +25,13 @@ public static class QAction
 
             var root = SecureNewtonsoftDeserialization.DeserializeObject<Root>(jsonRaw);
 
-            string lastPolled = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
             var tsRows = new List<TransportstreamsQActionRow>();
             var svcRows = new List<ServicesQActionRow>();
 
             // Generate random bitrate for services with missing or zero bitrate, to better visualize them in the UI.
             // Remove this logic if not needed.
             Random rng = new Random();
-            double maxBitrate = 15;
+            double maxBitrate = 100;
             int decimals = 3;
 
             foreach (var ts in root.TransportStreams)
@@ -47,7 +45,7 @@ public static class QAction
                     Transportstreamsip_1004 = ts.SourceIp,
                     Transportstreamsnetworkid_1005 = ts.NetworkId.ToString(),
                     Transportstreamsnumberofservices_1006 = (double)(ts.Services?.Count ?? 0),
-                    Transportstreamslastpolled_1007 = lastPolled,
+                    Transportstreamslastpolled_1007 = DateTime.Now.ToOADate(),
                 });
 
                 // protocol.SetRow(Parameter.TransportStreams.tablePid, tsKey, tsRows.Last().ToObjectArray());
@@ -67,7 +65,7 @@ public static class QAction
                         Servicesprovider_2005 = svc.ServiceProvider,
                         Servicesbitrate_2006 = svc.ServiceBitrate <= 0 ? Math.Round(rng.NextDouble() * maxBitrate, decimals) : svc.ServiceBitrate,
                         Servicestransportstreamid_2007 = tsKey,
-                        Serviceslastpolled_2008 = lastPolled,
+                        Serviceslastpolled_2008 = DateTime.Now.ToOADate(),
                         Servicestransportstreamnameservice_2009 = ts.TsName,
                     });
 
