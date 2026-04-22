@@ -44,6 +44,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAction_Helper", "QAction_H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAction_3", "QAction_3\QAction_3.csproj", "{BB70C48B-A116-6C00-503D-8614F9CD9212}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLC-C-TrainingExerciseQActionsAndTables.Tests", "SLC-C-TrainingExerciseQActionsAndTables.Tests\SLC-C-TrainingExerciseQActionsAndTables.Tests.csproj", "{563A04D1-6DC4-498D-9874-243471A76163}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{BB70C48B-A116-6C00-503D-8614F9CD9212}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB70C48B-A116-6C00-503D-8614F9CD9212}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB70C48B-A116-6C00-503D-8614F9CD9212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{563A04D1-6DC4-498D-9874-243471A76163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{563A04D1-6DC4-498D-9874-243471A76163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{563A04D1-6DC4-498D-9874-243471A76163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{563A04D1-6DC4-498D-9874-243471A76163}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{331BA2F5-3F1B-475A-A922-47EC6678ED62} = {B0404763-CB1B-4F0E-A98C-871D284B0429}
 		{2B9C9B91-E646-4956-A545-21743BADAD73} = {B0404763-CB1B-4F0E-A98C-871D284B0429}
 		{BB70C48B-A116-6C00-503D-8614F9CD9212} = {C24F6838-723F-40EB-BC1A-4E92237E294C}
+		{563A04D1-6DC4-498D-9874-243471A76163} = {C24F6838-723F-40EB-BC1A-4E92237E294C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03A3A86D-E75B-40FD-8E51-6FE22170ACD7}

@@ -10,7 +10,7 @@
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>Excercise QActions And Tables DataMiner Amer Mujalo</Name>
 	<Description>Excercise QActions And Tables DataMiner Amer Mujalo</Description>
-	<Version>1.0.0.1</Version>
+	<Version>1.0.0.2</Version>
 	<IntegrationID>DMS-DRV-0001</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline</Vendor>
@@ -500,7 +500,7 @@
 	<VersionHistory>
 		<Branches>
 			<Branch id="1">
-				<Comment>exercise-qactions-tables-dataMiner-amer-mujalo Branch</Comment>
+				<Comment>feature/unit-testing-qactions-tables Branch</Comment>
 				<SystemVersions>
 					<SystemVersion id="0">
 						<MajorVersions>
@@ -514,6 +514,7 @@
 										</Provider>
 										<Changes>
 											<NewFeature>Finished Version</NewFeature>
+											<NewFeature>theres now Unit tests</NewFeature>
 										</Changes>
 									</MinorVersion>
 								</MinorVersions>
