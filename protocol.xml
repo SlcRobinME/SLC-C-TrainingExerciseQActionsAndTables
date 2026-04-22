@@ -25,7 +25,7 @@
 		<MinimumRequiredVersion>10.4.0.0 - 14003</MinimumRequiredVersion>
 	</Compliancies>
 	<Params>
-		<Param id="50" setter="true">
+		<Param id="50">
 			<Name>ForcePoll</Name>
 			<Description>Force Poll</Description>
 			<Type>write</Type>
