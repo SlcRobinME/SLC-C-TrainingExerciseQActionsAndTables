@@ -300,14 +300,15 @@
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<!-- SuppressValidator 2.9.7 No need for units tag for IDs -->
 			<Display>
 				<RTDisplay>true</RTDisplay>
-				<Units>Services</Units>
 				<Range>
 					<Low>0</Low>
 					<High>99999</High>
 				</Range>
 			</Display>
+			<!-- /SuppressValidator 2.9.7 -->
 			<Measurement>
 				<Type>number</Type>
 			</Measurement>
