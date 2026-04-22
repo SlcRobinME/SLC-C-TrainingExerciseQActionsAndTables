@@ -48,7 +48,6 @@ public static class QAction
                     Transportstreamslastpolled_1007 = DateTime.Now.ToOADate(),
                 });
 
-                // protocol.SetRow(Parameter.TransportStreams.tablePid, tsKey, tsRows.Last().ToObjectArray());
                 if (ts.Services == null)
                     continue;
 
@@ -68,8 +67,6 @@ public static class QAction
                         Serviceslastpolled_2008 = DateTime.Now.ToOADate(),
                         Servicestransportstreamnameservice_2009 = ts.TsName,
                     });
-
-                    // protocol.SetRow(Parameter.Services.tablePid, svcKey, svcRows.Last().ToObjectArray());
                 }
             }
 
