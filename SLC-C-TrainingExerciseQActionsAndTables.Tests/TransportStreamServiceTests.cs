@@ -48,7 +48,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 		public void Should_Map_TransportStreams_Correctly()
 		{
 			// Arrange
-			var service = new TransportStreamService();
+			ITransportStreamService service = new TransportStreamService();
 			var root = new Root
 			{
 				TransportStreams = new List<TransportStream>
@@ -279,7 +279,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 
 			var mockProtocol = new Mock<SLProtocol>();
 
-			var sut = new TransportStreamService(loader: mockLoader.Object);
+			ITransportStreamService sut = new TransportStreamService(loader: mockLoader.Object);
 
 			// Act
 			sut.Execute(mockProtocol.Object);
@@ -312,7 +312,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 				.Returns(BuildRoot(new List<TransportStream>()));
 
 			var mockProtocol = new Mock<SLProtocol>();
-			var sut = new TransportStreamService(loader: mockLoader.Object);
+			ITransportStreamService sut = new TransportStreamService(loader: mockLoader.Object);
 			string customPath = @"C:\custom\path.json";
 
 			// Act

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Skyline.DataMiner.Scripting;
 
-public class TransportStreamService
+public class TransportStreamService : ITransportStreamService
 {
     private const string DefaultFilePath = @"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json";
 
