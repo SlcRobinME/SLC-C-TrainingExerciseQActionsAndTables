@@ -1,19 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Skyline.DataMiner.Scripting;
-
 namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Moq;
+	using Skyline.DataMiner.Scripting;
+
+	/// <summary>
+	/// Unit tests for <see cref="TransportStreamService"/>, covering mapping logic,
+	/// bitrate generation, service count calculation, and protocol integration.
+	/// </summary>
 	[TestClass]
 	public class TransportStreamServiceTests
 	{
-		// ─────────────────────────────────────────────
-		// Helpers
-		// ─────────────────────────────────────────────
-
 		private static Root BuildRoot(List<TransportStream> streams) =>
 			new Root { TransportStreams = streams };
 
@@ -40,6 +40,10 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 				ServiceBitrate = bitrate,
 			};
 
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Map"/> correctly maps all fields
+		/// of a transport stream and its services to the corresponding row properties.
+		/// </summary>
 		[TestMethod]
 		public void Should_Map_TransportStreams_Correctly()
 		{
@@ -97,11 +101,21 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			Assert.AreEqual("TS1", svc.Servicestransportstreamnameservice_2009);
 		}
 
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Map"/> sets the service count to zero
+		/// and returns an empty service row list when the stream has no services (null or empty list).
+		/// </summary>
+		/// <param name="useEmptyList">
+		/// <c>true</c> to pass an empty <see cref="List{Service}"/>;
+		/// <c>false</c> to pass <c>null</c>.
+		/// </param>
 		[TestMethod]
-		public void Should_Set_ServiceCount_To_Zero_When_Services_Is_Null()
+		[DataRow(false, DisplayName = "services is null")]
+		[DataRow(true, DisplayName = "services is empty list")]
+		public void Should_Set_ServiceCount_To_Zero_When_No_Services(bool useEmptyList)
 		{
-			var root = BuildRoot(new List<TransportStream> { BuildTs(services: null) });
-
+			var services = useEmptyList ? new List<Service>() : null;
+			var root = BuildRoot(new List<TransportStream> { BuildTs(services: services) });
 			var (tsRows, svcRows) = new TransportStreamService().Map(root);
 
 			Assert.AreEqual(1, tsRows.Count);
@@ -109,22 +123,33 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			Assert.AreEqual(0, svcRows.Count);
 		}
 
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Map"/> returns the correct number of
+		/// transport stream rows and service rows for various stream/service configurations.
+		/// </summary>
+		/// <param name="tsCount">Number of transport streams to create.</param>
+		/// <param name="totalServices">Number of services to assign to the first stream.</param>
+		/// <param name="expectedTs">Expected number of transport stream rows.</param>
+		/// <param name="expectedSvc">Expected number of service rows.</param>
 		[TestMethod]
-		public void Should_Produce_Correct_Row_Count_For_Multiple_Streams()
+		[DataRow(1, 0, 1, 0, DisplayName = "single stream, no services")]
+		[DataRow(1, 3, 1, 3, DisplayName = "single stream, 3 services")]
+		[DataRow(3, 3, 3, 3, DisplayName = "3 streams, mixed (2+1+null)")]
+		[DataRow(5, 0, 5, 0, DisplayName = "5 streams, all null")]
+		public void Should_Produce_Correct_Row_Count(int tsCount, int totalServices, int expectedTs, int expectedSvc)
 		{
-			var root = BuildRoot(new List<TransportStream>
-			{
-				BuildTs(tsId: 1, services: new List<Service> { BuildService(1), BuildService(2) }),
-				BuildTs(tsId: 2, services: new List<Service> { BuildService(3) }),
-				BuildTs(tsId: 3, services: null),
-			});
-
-			var (tsRows, svcRows) = new TransportStreamService().Map(root);
-
-			Assert.AreEqual(3, tsRows.Count);
-			Assert.AreEqual(3, svcRows.Count);
+			var streams = Enumerable.Range(1, tsCount).Select((id, index) => BuildTs(tsId: id,
+				services: index == 0 && totalServices > 0 ? Enumerable.Range(1, totalServices).Select(s => BuildService(s)).ToList() : null)).ToList();
+			var (tsRows, svcRows) = new TransportStreamService().Map(BuildRoot(streams));
+			Assert.AreEqual(expectedTs, tsRows.Count);
+			Assert.AreEqual(expectedSvc, svcRows.Count);
 		}
 
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Map"/> generates unique composite keys
+		/// (tsId/serviceId) across all transport streams, even when services share the same ID
+		/// in different streams.
+		/// </summary>
 		[TestMethod]
 		public void Should_Produce_Unique_Service_Keys_Across_Streams()
 		{
@@ -143,6 +168,10 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			CollectionAssert.Contains(keys, "2/10");
 		}
 
+		// <summary>
+		/// Verifies that <see cref="TransportStreamService.Map"/> returns empty lists for both
+		/// transport streams and services when the root contains no streams.
+		/// </summary>
 		[TestMethod]
 		public void Should_Return_Empty_Lists_When_No_Streams()
 		{
@@ -154,6 +183,10 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			Assert.AreEqual(0, svcRows.Count);
 		}
 
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Map"/> throws a
+		/// <see cref="NullReferenceException"/> when <c>null</c> is passed as the root object.
+		/// </summary>
 		[TestMethod]
 		public void Should_Throw_When_Root_Is_Null()
 		{
@@ -164,7 +197,10 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			Assert.Throws<NullReferenceException>(act);
 		}
 
-
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Map"/> preserves a positive bitrate
+		/// value as-is without applying any random generation.
+		/// </summary>
 		[TestMethod]
 		public void Should_Use_Provided_Bitrate_When_Positive()
 		{
@@ -178,49 +214,55 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			Assert.AreEqual(12.345, svcRows[0].Servicesbitrate_2006);
 		}
 
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Map"/> generates a random bitrate
+		/// within <c>[0, maxBitrate]</c> when the service bitrate is zero or negative.
+		/// </summary>
+		/// <param name="inputBitrate">The non-positive bitrate value to set on the service.</param>
+		/// <param name="maxBitrate">The upper bound passed to <see cref="TransportStreamService"/>.</param>
 		[TestMethod]
-		public void Should_Generate_Random_Bitrate_When_Bitrate_Is_Zero()
+		[DataRow(0, 100, DisplayName = "zero bitrate")]
+		[DataRow(-1, 50, DisplayName = "negative bitrate")]
+		[DataRow(-999, 75, DisplayName = "large negative bitrate")]
+		public void Should_Generate_Random_Bitrate_When_NonPositive(double inputBitrate, int maxBitrate)
 		{
 			var root = BuildRoot(new List<TransportStream>
 			{
-				BuildTs(services: new List<Service> { BuildService(bitrate: 0) })
+				BuildTs(services: new List<Service> { BuildService(bitrate: inputBitrate) }),
 			});
-
-			var (_, svcRows) = new TransportStreamService(maxBitrate: 100).Map(root);
-
+			var (_, svcRows) = new TransportStreamService(maxBitrate: maxBitrate).Map(root);
 			double bitrate = (double)svcRows[0].Servicesbitrate_2006;
-			Assert.IsTrue(bitrate >= 0 && bitrate <= 100, $"Bitrate {bitrate} out of range");
+			Assert.IsTrue(bitrate >= 0 && bitrate <= maxBitrate, $"Bitrate {bitrate} is not in the range [0, {maxBitrate}]");
 		}
 
+		/// <summary>
+		/// Verifies that the randomly generated bitrate is rounded to exactly the number of
+		/// decimal places specified via the <c>decimals</c> constructor parameter.
+		/// </summary>
+		/// <param name="decimals">The number of decimal places to enforce.</param>
 		[TestMethod]
-		public void Should_Generate_Random_Bitrate_When_Bitrate_Is_Negative()
-		{
-			var root = BuildRoot(new List<TransportStream>
-			{
-				BuildTs(services: new List<Service> { BuildService(bitrate: -1) })
-			});
-
-			var (_, svcRows) = new TransportStreamService(maxBitrate: 50).Map(root);
-
-			double bitrate = (double)svcRows[0].Servicesbitrate_2006;
-			Assert.IsTrue(bitrate >= 0 && bitrate <= 50, $"Bitrate {bitrate} out of range");
-		}
-
-		[TestMethod]
-		public void Should_Respect_Decimal_Places_For_Random_Bitrate()
+		[DataRow(0, DisplayName = "0 decimal places")]
+		[DataRow(1, DisplayName = "1 decimal place")]
+		[DataRow(2, DisplayName = "2 decimal places")]
+		[DataRow(4, DisplayName = "4 decimal places")]
+		public void Should_Respect_Decimal_Places_For_Random_Bitrate(int decimals)
 		{
 			var root = BuildRoot(new List<TransportStream>
 			{
 				BuildTs(services: new List<Service> { BuildService(bitrate: 0) }),
 			});
 
-			int decimals = 2;
-			var (_, svcRows) = new TransportStreamService(rng: new Random(42), decimals: decimals).Map(root);
-
+			var (_, svcRows) = new TransportStreamService(
+				rng: new Random(42), decimals: decimals).Map(root);
 			double bitrate = (double)svcRows[0].Servicesbitrate_2006;
 			Assert.AreEqual(Math.Round(bitrate, decimals), bitrate, $"Bitrate {bitrate} has more than {decimals} decimal places");
 		}
 
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Execute"/> calls
+		/// <c>FillArray</c> exactly once for each of the two tables
+		/// (transport streams and services).
+		/// </summary>
 		[TestMethod]
 		public void Execute_Should_Call_FillArray_For_Both_Tables()
 		{
@@ -256,6 +298,10 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 				NotifyProtocol.SaveOption.Full), Times.Once);
 		}
 
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Execute"/> forwards the provided
+		/// file path to the <see cref="IJsonLoader"/> without modification.
+		/// </summary>
 		[TestMethod]
 		public void Execute_Should_Pass_FilePath_To_Loader()
 		{
