@@ -14,7 +14,7 @@ public interface ITransportStreamService
     /// <param name="filePath">
     /// Path to the JSON file. Defaults to the standard DMA documents location when not specified.
     /// </param>
-    void Execute(SLProtocol protocol, string filePath = null);
+    void Execute(SLProtocol protocol, string filePath = @"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json");
 
     /// <summary>
     /// Maps a <see cref="Root"/> object to transport stream and service row collections.

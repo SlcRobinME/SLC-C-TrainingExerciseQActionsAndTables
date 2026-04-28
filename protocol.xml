@@ -10,7 +10,7 @@
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>Excercise QActions And Tables DataMiner Amer Mujalo</Name>
 	<Description>Excercise QActions And Tables DataMiner Amer Mujalo</Description>
-	<Version>1.0.0.2</Version>
+	<Version>1.0.0.3</Version>
 	<IntegrationID>DMS-DRV-0001</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline</Vendor>
@@ -18,13 +18,33 @@
 	<DeviceOID>1</DeviceOID>
 	<ElementType>Encoder</ElementType>
 	<Type relativeTimers="true">virtual</Type>
-	<Display defaultPage="General" pageOrder="General" wideColumnPages=""/>
+	<Display defaultPage="General" pageOrder="General;Tree" wideColumnPages="Tree;General"/>
 	<SNMP includepages="true">auto</SNMP>
 	<Compliancies>
 		<CassandraReady>true</CassandraReady>
 		<MinimumRequiredVersion>10.4.0.0 - 14003</MinimumRequiredVersion>
 	</Compliancies>
 	<Params>
+		<Param id="30">
+			<Name>TransportStreamTree</Name>
+			<Description>Transport Stream Tree</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Tree</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+		</Param>
 		<Param id="50">
 			<Name>ForcePoll</Name>
 			<Description>Force Poll</Description>
@@ -44,6 +64,11 @@
 						<Page>General</Page>
 						<Column>0</Column>
 						<Row>2</Row>
+					</Position>
+					<Position>
+						<Page>Tree</Page>
+						<Column>0</Column>
+						<Row>1</Row>
 					</Position>
 				</Positions>
 			</Display>
@@ -467,6 +492,15 @@
 	<Relations>
 		<Relation path="1000;2000"/>
 	</Relations>
+	<TreeControls>
+		<TreeControl parameterId="30" readOnly="true">
+			<Hierarchy>
+				<Table id="1000"/>
+				<Table id="2000" parent="1000"/>
+			</Hierarchy>
+			<OverrideDisplayColumns>1002,2003</OverrideDisplayColumns>
+		</TreeControl>
+	</TreeControls>
 	<QActions>
 		<QAction id="3" name="Parse Transport Streams JSON" encoding="csharp" triggers="50" options="precompile" />		
 	</QActions>

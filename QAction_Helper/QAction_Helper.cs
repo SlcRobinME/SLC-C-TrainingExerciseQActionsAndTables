@@ -8,6 +8,11 @@ namespace Skyline.DataMiner.Scripting
 {
 public static class Parameter
 {
+	/// <summary>PID: 30 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int transportstreamtree_30 = 30;
+	/// <summary>PID: 30 | Type: read</summary>
+	public const int transportstreamtree = 30;
 	public class Write
 	{
 		/// <summary>PID: 50 | Type: write</summary>
@@ -229,6 +234,8 @@ public interface SLProtocolExt : SLProtocol
 	TransportstreamsQActionTable transportstreams { get; set; }
 	/// <summary>PID: 2000</summary>
 	ServicesQActionTable services { get; set; }
+	object Transportstreamtree_30 { get; set; }
+	object Transportstreamtree { get; set; }
 	object Forcepoll_50 { get; set; }
 	object Forcepoll { get; set; }
 	object Transportstreamsid_1001 { get; set; }
@@ -271,6 +278,11 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public TransportstreamsQActionTable transportstreams { get; set; }
 	/// <summary>PID: 2000</summary>
 	public ServicesQActionTable services { get; set; }
+	/// <summary>PID: 30  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Transportstreamtree_30 {get { return GetParameter(30); }set { SetParameter(30, value); }}
+	/// <summary>PID: 30  | Type: read</summary>
+	public System.Object Transportstreamtree {get { return GetParameter(30); }set { SetParameter(30, value); }}
 	/// <summary>PID: 50  | Type: write | DISCREETS: Force Poll = 1</summary>
 	public System.Object Forcepoll_50 {get { return GetParameter(50); }set { SetParameter(50, value); }}
 	/// <summary>PID: 50  | Type: write | DISCREETS: Force Poll = 1</summary>

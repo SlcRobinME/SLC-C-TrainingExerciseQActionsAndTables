@@ -11,13 +11,12 @@ public static class QAction
     /// </summary>
     /// <param name="protocol">Link with SLProtocol process.</param>
     /// <param name="service">DI for the transport stream service.</param>
-    public static void Run(SLProtocolExt protocol, ITransportStreamService service = null)
+    public static void Run(SLProtocolExt protocol)
     {
         try
         {
-            if (service == null)
-                service = new TransportStreamService();
-            service.Execute(protocol);
+             var service = new TransportStreamService();
+             service.Execute(protocol);
         }
         catch (Exception ex)
         {

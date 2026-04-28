@@ -1,13 +1,14 @@
 namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using FluentAssertions;
-	using FluentAssertions.Execution;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
 	using Moq;
 	using Skyline.DataMiner.Scripting;
+	using Skyline.DataMiner.Utils.UnitTestingFramework.Protocol;
+	using FluentAssertions;
+	using FluentAssertions.Execution;
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
 
 	/// <summary>
 	/// Unit tests for <see cref="TransportStreamService"/>, covering mapping logic,
@@ -55,33 +56,26 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			var (tsRows, svcRows) = service.Map(root);
 
 			// Assert – TS
-			tsRows.Count.Should().Be(1);
+			Assert.AreEqual(1, tsRows.Count);
 			var ts = tsRows[0];
-			using (new AssertionScope())
-			{
-				ts.Transportstreamsid_1001.Should().Be("1");
-				ts.Transportstreamsname_1002.Should().Be("TS1");
-				ts.Transportstreamsmulticast_1003.Should().Be("239.0.0.1");
-				ts.Transportstreamsip_1004.Should().Be("192.168.1.1");
-				ts.Transportstreamsnetworkid_1005.Should().Be("100");
-				ts.Transportstreamsnumberofservices_1006.Should().Be(1.0);
-			}
+			Assert.AreEqual("1", ts.Transportstreamsid_1001);
+			Assert.AreEqual("TS1", ts.Transportstreamsname_1002);
+			Assert.AreEqual("239.0.0.1", ts.Transportstreamsmulticast_1003);
+			Assert.AreEqual("192.168.1.1", ts.Transportstreamsip_1004);
+			Assert.AreEqual("100", ts.Transportstreamsnetworkid_1005);
+			Assert.AreEqual(1.0, ts.Transportstreamsnumberofservices_1006);
 
-			// Service
-			svcRows.Count.Should().Be(1);
+			// Assert – Service
+			Assert.AreEqual(1, svcRows.Count);
 			var svc = svcRows[0];
-
-			using (new AssertionScope())
-			{
-				svc.Servicesinstanceid_2001.Should().Be("1/10");
-				svc.Servicesid_2002.Should().Be(10.0);
-				svc.Servicesname_2003.Should().Be("Service1");
-				svc.Servicestype_2004.Should().Be("TV");
-				svc.Servicesprovider_2005.Should().Be("Provider1");
-				svc.Servicesbitrate_2006.Should().Be(50.0);
-				svc.Servicestransportstreamid_2007.Should().Be("1");
-				svc.Servicestransportstreamnameservice_2009.Should().Be("TS1");
-			}
+			Assert.AreEqual("1/10", svc.Servicesinstanceid_2001);
+			Assert.AreEqual(10.0, svc.Servicesid_2002);
+			Assert.AreEqual("Service1", svc.Servicesname_2003);
+			Assert.AreEqual("TV", svc.Servicestype_2004);
+			Assert.AreEqual("Provider1", svc.Servicesprovider_2005);
+			Assert.AreEqual(50.0, svc.Servicesbitrate_2006);
+			Assert.AreEqual("1", svc.Servicestransportstreamid_2007);
+			Assert.AreEqual("TS1", svc.Servicestransportstreamnameservice_2009);
 		}
 
 		/// <summary>
@@ -263,26 +257,26 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 				.Setup(l => l.Load(It.IsAny<string>()))
 				.Returns(fakeRoot);
 
-			var mockProtocol = new Mock<SLProtocol>();
+			var protocolMock = new SLProtocolMock();
 
 			ITransportStreamService sut = new TransportStreamService(loader: mockLoader.Object);
 
 			// Act
-			sut.Execute(mockProtocol.Object);
+			sut.Execute(protocolMock.Object);
 
 			// Assert
-			mockProtocol.Verify(
+			protocolMock.Verify(
 				p => p.FillArray(
-				Parameter.Transportstreams.tablePid,
-				It.IsAny<List<object[]>>(),
-				NotifyProtocol.SaveOption.Full), Times.Once);
+					Parameter.Transportstreams.tablePid,
+					It.IsAny<List<object[]>>(),
+					NotifyProtocol.SaveOption.Full), Times.Once);
 
-			mockProtocol.Verify(
+			protocolMock.Verify(
 				p => p.FillArray(
-				Parameter.Services.tablePid,
-				It.IsAny<List<object[]>>(),
-				NotifyProtocol.SaveOption.Full), Times.Once);
-		}
+					Parameter.Services.tablePid,
+					It.IsAny<List<object[]>>(),
+					NotifyProtocol.SaveOption.Full), Times.Once);
+					}
 
 		/// <summary>
 		/// Verifies that <see cref="TransportStreamService.Execute"/> forwards the provided
@@ -297,12 +291,12 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 				.Setup(l => l.Load(It.IsAny<string>()))
 				.Returns(BuildRoot(new List<TransportStream>()));
 
-			var mockProtocol = new Mock<SLProtocol>();
+			var protocolMock = new SLProtocolMock();
 			ITransportStreamService sut = new TransportStreamService(loader: mockLoader.Object);
 			string customPath = @"C:\custom\path.json";
 
 			// Act
-			sut.Execute(mockProtocol.Object, customPath);
+			sut.Execute(protocolMock.Object, customPath);
 
 			// Assert
 			mockLoader.Verify(l => l.Load(customPath), Times.Once);
