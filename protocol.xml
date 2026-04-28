@@ -509,12 +509,21 @@
 									<MinorVersion id="1">
 										<Date>2026-01-04</Date>
 										<Provider>
-											<Author>AMO</Author>
+											<Author>AmerMO</Author>
 											<Company>Skyline Communications</Company>
 										</Provider>
 										<Changes>
 											<NewFeature>Finished Version</NewFeature>
-											<NewFeature>theres now Unit tests</NewFeature>
+										</Changes>
+									</MinorVersion>
+									<MinorVersion id="2" basedOn="1.0.0.1">
+										<Date>2026-04-24</Date>
+										<Provider>
+											<Author>AmerMO</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<NewFeature>Added Unit tests</NewFeature>
 										</Changes>
 									</MinorVersion>
 								</MinorVersions>

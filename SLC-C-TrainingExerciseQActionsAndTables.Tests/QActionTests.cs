@@ -42,7 +42,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			var mockProtocol = new Mock<SLProtocolExt>();
 			var mockService = new Mock<ITransportStreamService>();
 
-			mockService	
+			mockService
 				.Setup(s => s.Execute(It.IsAny<SLProtocolExt>(), It.IsAny<string>()))
 				.Throws(new Exception("something went wrong"));
 

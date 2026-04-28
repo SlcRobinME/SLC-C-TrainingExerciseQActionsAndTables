@@ -168,7 +168,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			CollectionAssert.Contains(keys, "2/10");
 		}
 
-		// <summary>
+		/// <summary>
 		/// Verifies that <see cref="TransportStreamService.Map"/> returns empty lists for both
 		/// transport streams and services when the root contains no streams.
 		/// </summary>
