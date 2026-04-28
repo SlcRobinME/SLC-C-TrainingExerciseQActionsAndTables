@@ -3,6 +3,8 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+	using FluentAssertions;
+	using FluentAssertions.Execution;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
 	using Moq;
 	using Skyline.DataMiner.Scripting;
@@ -14,32 +16,6 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 	[TestClass]
 	public class TransportStreamServiceTests
 	{
-		private static Root BuildRoot(List<TransportStream> streams) =>
-			new Root { TransportStreams = streams };
-
-		private static TransportStream BuildTs(
-			int tsId = 1, string name = "TS1", string multicast = "239.0.0.1", string sourceIp = "10.0.0.1", int networkId = 100, List<Service> services = null) =>
-			new TransportStream
-			{
-				TsId = tsId,
-				TsName = name,
-				Multicast = multicast,
-				SourceIp = sourceIp,
-				NetworkId = networkId,
-				Services = services,
-			};
-
-		private static Service BuildService(
-			int serviceId = 10, string name = "SVC1", string type = "TV", string provider = "Provider1", double bitrate = 50.0) =>
-			new Service
-			{
-				ServiceId = serviceId,
-				ServiceName = name,
-				ServiceType = type,
-				ServiceProvider = provider,
-				ServiceBitrate = bitrate,
-			};
-
 		/// <summary>
 		/// Verifies that <see cref="TransportStreamService.Map"/> correctly maps all fields
 		/// of a transport stream and its services to the corresponding row properties.
@@ -53,7 +29,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			{
 				TransportStreams = new List<TransportStream>
 				{
-					new TransportStream
+					new ()
 					{
 						TsId = 1,
 						TsName = "TS1",
@@ -62,7 +38,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 						NetworkId = 100,
 						Services = new List<Service>
 						{
-							new Service
+							new ()
 							{
 								ServiceId = 10,
 								ServiceName = "Service1",
@@ -79,26 +55,33 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			var (tsRows, svcRows) = service.Map(root);
 
 			// Assert – TS
-			Assert.AreEqual(1, tsRows.Count);
+			tsRows.Count.Should().Be(1);
 			var ts = tsRows[0];
-			Assert.AreEqual("1", ts.Transportstreamsid_1001);
-			Assert.AreEqual("TS1", ts.Transportstreamsname_1002);
-			Assert.AreEqual("239.0.0.1", ts.Transportstreamsmulticast_1003);
-			Assert.AreEqual("192.168.1.1", ts.Transportstreamsip_1004);
-			Assert.AreEqual("100", ts.Transportstreamsnetworkid_1005);
-			Assert.AreEqual(1.0, ts.Transportstreamsnumberofservices_1006);
+			using (new AssertionScope())
+			{
+				ts.Transportstreamsid_1001.Should().Be("1");
+				ts.Transportstreamsname_1002.Should().Be("TS1");
+				ts.Transportstreamsmulticast_1003.Should().Be("239.0.0.1");
+				ts.Transportstreamsip_1004.Should().Be("192.168.1.1");
+				ts.Transportstreamsnetworkid_1005.Should().Be("100");
+				ts.Transportstreamsnumberofservices_1006.Should().Be(1.0);
+			}
 
-			// Assert – Service
-			Assert.AreEqual(1, svcRows.Count);
+			// Service
+			svcRows.Count.Should().Be(1);
 			var svc = svcRows[0];
-			Assert.AreEqual("1/10", svc.Servicesinstanceid_2001);
-			Assert.AreEqual(10.0, svc.Servicesid_2002);
-			Assert.AreEqual("Service1", svc.Servicesname_2003);
-			Assert.AreEqual("TV", svc.Servicestype_2004);
-			Assert.AreEqual("Provider1", svc.Servicesprovider_2005);
-			Assert.AreEqual(50.0, svc.Servicesbitrate_2006);
-			Assert.AreEqual("1", svc.Servicestransportstreamid_2007);
-			Assert.AreEqual("TS1", svc.Servicestransportstreamnameservice_2009);
+
+			using (new AssertionScope())
+			{
+				svc.Servicesinstanceid_2001.Should().Be("1/10");
+				svc.Servicesid_2002.Should().Be(10.0);
+				svc.Servicesname_2003.Should().Be("Service1");
+				svc.Servicestype_2004.Should().Be("TV");
+				svc.Servicesprovider_2005.Should().Be("Provider1");
+				svc.Servicesbitrate_2006.Should().Be(50.0);
+				svc.Servicestransportstreamid_2007.Should().Be("1");
+				svc.Servicestransportstreamnameservice_2009.Should().Be("TS1");
+			}
 		}
 
 		/// <summary>
@@ -118,9 +101,9 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			var root = BuildRoot(new List<TransportStream> { BuildTs(services: services) });
 			var (tsRows, svcRows) = new TransportStreamService().Map(root);
 
-			Assert.AreEqual(1, tsRows.Count);
+			Assert.HasCount(1, tsRows);
 			Assert.AreEqual(0.0, tsRows[0].Transportstreamsnumberofservices_1006);
-			Assert.AreEqual(0, svcRows.Count);
+			Assert.HasCount(0, svcRows);
 		}
 
 		/// <summary>
@@ -138,8 +121,11 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 		[DataRow(5, 0, 5, 0, DisplayName = "5 streams, all null")]
 		public void Should_Produce_Correct_Row_Count(int tsCount, int totalServices, int expectedTs, int expectedSvc)
 		{
-			var streams = Enumerable.Range(1, tsCount).Select((id, index) => BuildTs(tsId: id,
-				services: index == 0 && totalServices > 0 ? Enumerable.Range(1, totalServices).Select(s => BuildService(s)).ToList() : null)).ToList();
+			var streams = Enumerable.Range(1, tsCount)
+					.Select((id, index) => BuildTs(
+						tsId: id,
+						services: index == 0 && totalServices > 0 ? Enumerable.Range(1, totalServices).Select(s => BuildService(s)).ToList() : null))
+					.ToList();
 			var (tsRows, svcRows) = new TransportStreamService().Map(BuildRoot(streams));
 			Assert.AreEqual(expectedTs, tsRows.Count);
 			Assert.AreEqual(expectedSvc, svcRows.Count);
@@ -321,5 +307,31 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			// Assert
 			mockLoader.Verify(l => l.Load(customPath), Times.Once);
 		}
+
+		private static Root BuildRoot(List<TransportStream> streams) =>
+				new Root { TransportStreams = streams };
+
+		private static TransportStream BuildTs(
+			int tsId = 1, string name = "TS1", string multicast = "239.0.0.1", string sourceIp = "10.0.0.1", int networkId = 100, List<Service> services = null) =>
+			new TransportStream
+			{
+				TsId = tsId,
+				TsName = name,
+				Multicast = multicast,
+				SourceIp = sourceIp,
+				NetworkId = networkId,
+				Services = services,
+			};
+
+		private static Service BuildService(
+			int serviceId = 10, string name = "SVC1", string type = "TV", string provider = "Provider1", double bitrate = 50.0) =>
+			new Service
+			{
+				ServiceId = serviceId,
+				ServiceName = name,
+				ServiceType = type,
+				ServiceProvider = provider,
+				ServiceBitrate = bitrate,
+			};
 	}
 }
