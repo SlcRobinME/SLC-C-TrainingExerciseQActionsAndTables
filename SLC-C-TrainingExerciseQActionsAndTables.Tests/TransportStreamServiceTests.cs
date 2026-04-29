@@ -1,14 +1,13 @@
 namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using FluentAssertions;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
 	using Moq;
 	using Skyline.DataMiner.Scripting;
 	using Skyline.DataMiner.Utils.UnitTestingFramework.Protocol;
-	using FluentAssertions;
-	using FluentAssertions.Execution;
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
 
 	/// <summary>
 	/// Unit tests for <see cref="TransportStreamService"/>, covering mapping logic,
