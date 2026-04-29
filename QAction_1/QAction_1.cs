@@ -9,18 +9,22 @@ namespace Skyline.Protocol
 
     public static class DataPoller
     {
-        private const string JsonFilePath =@"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json";
+        public const string JsonFilePath = @"C:\Skyline DataMiner\Documents\DMA_COMMON_DOCUMENTS\Data.json";
 
-        public static void PollData(SLProtocolExt protocol)
+        public static string getData(SLProtocolExt protocol, string jsonFilePath)
+        {
+            if (!File.Exists(jsonFilePath))
+            {
+                protocol.Log($"QA|DataPoller|PollData|File not found: {jsonFilePath}", LogType.Error, LogLevel.NoLogging);
+            }
+            string jsonContent = File.ReadAllText(jsonFilePath);
+            return jsonContent;
+        }
+
+        public static void PollData(SLProtocolExt protocol, string jsonContent)
         {
             try
             {
-                if (!File.Exists(JsonFilePath))
-                {
-                    protocol.Log($"QA|DataPoller|PollData|File not found: {JsonFilePath}", LogType.Error, LogLevel.NoLogging);
-                    return;
-                }
-                string jsonContent = File.ReadAllText(JsonFilePath);
                 var root = SecureNewtonsoftDeserialization.DeserializeObject<TransportStreamRoot>(jsonContent);
 
                 if (root?.TransportStreams == null || root.TransportStreams.Count == 0)

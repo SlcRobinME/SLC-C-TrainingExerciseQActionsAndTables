@@ -15,7 +15,8 @@ public static class QAction
     {
         try
         {
-            DataPoller.PollData(protocol);
+            string data = DataPoller.getData(protocol,DataPoller.JsonFilePath); 
+            DataPoller.PollData(protocol,data);
         }
         catch (Exception ex)
         {

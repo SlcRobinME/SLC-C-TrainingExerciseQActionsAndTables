@@ -142,200 +142,212 @@ namespace QAction1_Tests
     [TestClass]
     public class TablePopulationTests
     {
+        private const string SingleTransportStreamJson = @"{""transport_streams"": [{
+                                        ""ts_id"": 1,
+                                        ""ts_name"": ""RTL HD"",
+                                        ""multicast"": ""232.101.1.1"",
+                                        ""sourceIp"": ""10.15.1.1"",
+                                        ""network_id"": 1,
+                                        ""services"": [{
+                                            ""service_id"": 52006,
+                                            ""service_name"": ""Service 1"",
+                                            ""service_type"": ""digital_television"",
+                                            ""service_provider"": ""Provider A"",
+                                            ""service_bitrate"": 27.8
+                                                         }]
+                                        }]}";
+
+        private const string MultipleTransportStreamsJson = @"{""transport_streams"": [{
+                                        ""ts_id"": 1,
+                                        ""ts_name"": ""RTL HD"",
+                                        ""multicast"": ""232.101.1.1"",
+                                        ""sourceIp"": ""10.15.1.1"",
+                                        ""network_id"": 1,
+                                        ""services"": [{
+                                            ""service_id"": 52006,
+                                            ""service_name"": ""Service 1"",
+                                            ""service_type"": ""digital_television"",
+                                            ""service_provider"": ""Provider A"",
+                                            ""service_bitrate"": 27.8
+                                        }]
+                                         }, {
+                                        ""ts_id"": 2,
+                                        ""ts_name"": ""Das Erste SD"",
+                                        ""multicast"": ""232.101.1.2"",
+                                        ""sourceIp"": ""10.15.1.2"",
+                                        ""network_id"": 1,
+                                        ""services"": [{
+                                            ""service_id"": 101,
+                                            ""service_name"": ""Service 3"",
+                                            ""service_type"": ""digital_television"",
+                                            ""service_provider"": ""Provider B"",
+                                            ""service_bitrate"": 5.0
+                                            }]
+                                        }]}";
+
         [TestMethod]
-        public void TransportStreamsTable_AddRow_RowKeyExists()
+        public void PollData_ValidJson_TransportStreamsTableRowCountCorrect()
         {
-            //Arrange
+            // Arrange
             var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
 
-            var row = new TransportstreamsQActionRow
-            {
-                Transportstreamsid = "1",
-                Transportstreamsname = "RTL HD",
-            };
-            //Act
-            protocolMock.Object.AddRow(Parameter.Transportstreams.tablePid, row.ToObjectArray());
-            //Assert
-            protocolMock.Assert()
-                .Table(Parameter.Transportstreams.tablePid)
-                .AllRows()
-                .Should()
-                .ContainKey("1");
+            // Act
+            DataPoller.PollData(protocolMock.Object, SingleTransportStreamJson);
 
-        }
-
-        [TestMethod]
-        public void TransportStreamsTable_AddRow_RowCountIsCorrect()
-        {
-            //Arrange
-            var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
-
-            var row1 = new TransportstreamsQActionRow { Transportstreamsid = "1", Transportstreamsname = "RTL HD" };
-            var row2 = new TransportstreamsQActionRow { Transportstreamsid = "2", Transportstreamsname = "Das Erste SD" };
-            var row3 = new TransportstreamsQActionRow { Transportstreamsid = "3", Transportstreamsname = "Comedy Central HD" };
-
-            //Act
-            protocolMock.Object.AddRow(Parameter.Transportstreams.tablePid, row1.ToObjectArray());
-            protocolMock.Object.AddRow(Parameter.Transportstreams.tablePid, row2.ToObjectArray());
-            protocolMock.Object.AddRow(Parameter.Transportstreams.tablePid, row3.ToObjectArray());
-            //Assert
+            // Assert
             protocolMock.Assert()
                 .Table(Parameter.Transportstreams.tablePid)
                 .RowCount
                 .Should()
-                .Be(3);
+                .Be(1);
         }
 
         [TestMethod]
-        public void TransportStreamsTable_AddRow_AllKeysExist()
+        public void PollData_ValidJson_ServicesTableRowCountCorrect()
         {
-            //Arrange
+            // Arrange
             var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
 
-            var row1 = new TransportstreamsQActionRow { Transportstreamsid = "1", Transportstreamsname = "RTL HD" };
-            var row2 = new TransportstreamsQActionRow { Transportstreamsid = "2", Transportstreamsname = "Das Erste SD" };
-            var row3 = new TransportstreamsQActionRow { Transportstreamsid = "3", Transportstreamsname = "Comedy Central HD" };
-            //Act
-            protocolMock.Object.AddRow(Parameter.Transportstreams.tablePid, row1.ToObjectArray());
-            protocolMock.Object.AddRow(Parameter.Transportstreams.tablePid, row2.ToObjectArray());
-            protocolMock.Object.AddRow(Parameter.Transportstreams.tablePid, row3.ToObjectArray());
-            //Assert
+            // Act
+            DataPoller.PollData(protocolMock.Object, SingleTransportStreamJson);
+
+            // Assert
             protocolMock.Assert()
                 .Table(Parameter.Transportstreams.tablePid)
-                .AllRows()
+                .RowCount
                 .Should()
-                .ContainKeys("1", "2", "3");
+                .Be(1);
         }
 
         [TestMethod]
-        public void TransportStreamsTable_AddRow_TransportStreamName()
+        public void PollData_ValidJson_TransportStreamRowContainsCorrectName()
         {
-            //Arrange
+            // Arrange
             var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
 
-            var row = new TransportstreamsQActionRow
-            {
-                Transportstreamsid = "1",
-                Transportstreamsname = "RTL HD",
-            };
-            //Act
-            protocolMock.Object.AddRow(Parameter.Transportstreams.tablePid, row.ToObjectArray());
-            //Assert
+            // Act
+            DataPoller.PollData(protocolMock.Object, SingleTransportStreamJson);
+
+            // Assert
             Assert.AreEqual("RTL HD", protocolMock.Assert().Table(Parameter.Transportstreams.tablePid).Row<TransportstreamsQActionRow>("1").Transportstreamsname);
         }
 
-
         [TestMethod]
-        public void TransportStreamsTable_AddRow_MulticastAddressCorrect()
+        public void PollData_ValidJson_TransportStreamRowContainsCorrectMulticast()
         {
-            //Arrange
+            // Arrange
             var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
 
-            var row = new TransportstreamsQActionRow
-            {
-                Transportstreamsid = "1",
-                Transportstreamsmulticastaddress = "232.101.1.1",
-            };
-            //Act
-            protocolMock.Object.AddRow(Parameter.Transportstreams.tablePid, row.ToObjectArray());
-            //Assert
+            // Act
+            DataPoller.PollData(protocolMock.Object, SingleTransportStreamJson);
+
+            // Assert
             Assert.AreEqual("232.101.1.1", protocolMock.Assert().Table(Parameter.Transportstreams.tablePid).Row<TransportstreamsQActionRow>("1").Transportstreamsmulticastaddress);
         }
 
         [TestMethod]
-        public void TransportStreamsTable_AddRow_NetworkIDCorrect()
+        public void PollData_ValidJson_TransportStreamRowContainsCorrectNetworkId()
         {
-            //Arrange
+            // Arrange
             var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
 
-            var row = new TransportstreamsQActionRow
-            {
-                Transportstreamsid = "1",
-                Transportstreamsnetworkid = 1.0,
-            };
-            //Act
-            protocolMock.Object.AddRow(Parameter.Transportstreams.tablePid, row.ToObjectArray());
-            //Assert
+            // Act
+            DataPoller.PollData(protocolMock.Object, SingleTransportStreamJson);
+
+            // Assert
             Assert.AreEqual(1.0, protocolMock.Assert().Table(Parameter.Transportstreams.tablePid).Row<TransportstreamsQActionRow>("1").Transportstreamsnetworkid);
         }
 
-
         [TestMethod]
-        public void ServicesTable_AddRow_RowExistsWithCorrectValues()
+        public void PollData_ValidJson_ServiceRowContainsCorrectName()
         {
-            //Arrange
+            // Arrange
             var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
 
-            var row = new ServicesQActionRow
-            {
-                Servicesid = "1/52006",
-                Servicesname = "Service 1",
-            };
-            //Act
-            protocolMock.Object.AddRow(Parameter.Services.tablePid, row.ToObjectArray());
-            //Assert
+            // Act
+            DataPoller.PollData(protocolMock.Object, SingleTransportStreamJson);
+
+            // Assert
             Assert.AreEqual("Service 1", protocolMock.Assert().Table(Parameter.Services.tablePid).Row<ServicesQActionRow>("1/52006").Servicesname);
         }
-
-
         [TestMethod]
-        public void ServicesTable_AddRow_RowCountIsCorrect()
+        public void PollData_ValidJson_ServiceRowContainsCorrectType()
         {
-            //Arrange
+            // Arrange
             var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
 
-            var row1 = new ServicesQActionRow { Servicesid = "1/52006", Servicesname = "Service 1" };
-            var row2 = new ServicesQActionRow { Servicesid = "1/52007", Servicesname = "Service 2" };
-            var row3 = new ServicesQActionRow { Servicesid = "2/101", Servicesname = "Service 3" };
-            //Act
-            protocolMock.Object.AddRow(Parameter.Services.tablePid, row1.ToObjectArray());
-            protocolMock.Object.AddRow(Parameter.Services.tablePid, row2.ToObjectArray());
-            protocolMock.Object.AddRow(Parameter.Services.tablePid, row3.ToObjectArray());
-            //Assert
-            protocolMock.Assert()
-                .Table(Parameter.Services.tablePid)
-                .RowCount
-                .Should()
-                .Be(3);
-        }
+            // Act
+            DataPoller.PollData(protocolMock.Object, SingleTransportStreamJson);
 
-
-        [TestMethod]
-        public void ServicesTable_AddRow_CompositeKeyCorrect()
-        {
-            //Arrange
-            var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
-
-            var row = new ServicesQActionRow
-            {
-                Servicesid = "1/52006",
-                Servicesname = "Service 1",
-            };
-            //Act
-            protocolMock.Object.AddRow(Parameter.Services.tablePid, row.ToObjectArray());
-            //Assert
-            protocolMock.Assert()
-                .Table(Parameter.Services.tablePid)
-                .AllRows()
-                .Should()
-                .ContainKey("1/52006");
-        }
-
-        [TestMethod]
-        public void ServicesTable_AddRow_ServiceTypeCorrect()
-        {
-            //Arrange
-            var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
-
-            var row = new ServicesQActionRow
-            {
-                Servicesid = "1/52006",
-                Servicestype = "digital_television",
-            };
-            //Act
-            protocolMock.Object.AddRow(Parameter.Services.tablePid, row.ToObjectArray());
-            //Assert
+            // Assert
             Assert.AreEqual("digital_television", protocolMock.Assert().Table(Parameter.Services.tablePid).Row<ServicesQActionRow>("1/52006").Servicestype);
+        }
+
+        [TestMethod]
+        public void PollData_ValidJson_ServiceRowContainsCorrectForeignKey()
+        {
+            // Arrange
+            var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
+
+            // Act
+            DataPoller.PollData(protocolMock.Object, SingleTransportStreamJson);
+
+            // Assert
+            Assert.AreEqual("1", protocolMock.Assert().Table(Parameter.Services.tablePid).Row<ServicesQActionRow>("1/52006").Servicestransportstreamid);
+        }
+
+        [TestMethod]
+        public void PollData_ValidJson_ServiceRowContainsCorrectCompositeKey()
+        {
+            // Arrange
+            var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
+
+            // Act
+            DataPoller.PollData(protocolMock.Object, SingleTransportStreamJson);
+
+            // Assert
+            protocolMock.Assert().Table(Parameter.Services.tablePid).AllRows().Should().ContainKey("1/52006");
+        }
+
+        [TestMethod]
+        public void PollData_MultipleTransportStreams_TransportStreamsTableRowCountCorrect()
+        {
+            // Arrange
+            var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
+
+            // Act
+            DataPoller.PollData(protocolMock.Object, MultipleTransportStreamsJson);
+
+            // Assert
+            protocolMock.Assert().Table(Parameter.Transportstreams.tablePid).RowCount.Should().Be(2);
+        }
+
+
+        [TestMethod]
+        public void PollData_MultipleTransportStreams_ServicesTableRowCountCorrect()
+        {
+            // Arrange
+            var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
+
+            // Act
+            DataPoller.PollData(protocolMock.Object, MultipleTransportStreamsJson);
+
+            // Assert
+            protocolMock.Assert().Table(Parameter.Services.tablePid).RowCount.Should().Be(2);
+        }
+
+        [TestMethod]
+        public void PollData_EmptyTransportStreams_TablesAreEmpty()
+        {
+            // Arrange
+            var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
+            string json = @"{""transport_streams"": []}";
+
+            // Act
+            DataPoller.PollData(protocolMock.Object, json);
+
+            // Assert
+            protocolMock.Assert().Table(Parameter.Transportstreams.tablePid).RowCount.Should().Be(0);
         }
     }
 }

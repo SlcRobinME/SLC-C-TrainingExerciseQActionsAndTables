@@ -8,6 +8,11 @@ namespace Skyline.DataMiner.Scripting
 {
 public static class Parameter
 {
+	/// <summary>PID: 100 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int transportstreamsoverview_100 = 100;
+	/// <summary>PID: 100 | Type: read</summary>
+	public const int transportstreamsoverview = 100;
 	public class Write
 	{
 		/// <summary>PID: 51 | Type: write</summary>
@@ -213,6 +218,8 @@ public interface SLProtocolExt : SLProtocol
 	object Polltrigger_dummy { get; set; }
 	object Pollbutton_51 { get; set; }
 	object Pollbutton { get; set; }
+	object Transportstreamsoverview_100 { get; set; }
+	object Transportstreamsoverview { get; set; }
 	object Transportstreamsid_1001 { get; set; }
 	object Transportstreamsid { get; set; }
 	object Transportstreamsname_1002 { get; set; }
@@ -257,6 +264,11 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Pollbutton_51 {get { return GetParameter(51); }set { SetParameter(51, value); }}
 	/// <summary>PID: 51  | Type: write | DISCREETS: Poll Now = Poll</summary>
 	public System.Object Pollbutton {get { return Write.Pollbutton; }set { Write.Pollbutton = value; }}
+	/// <summary>PID: 100  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Transportstreamsoverview_100 {get { return GetParameter(100); }set { SetParameter(100, value); }}
+	/// <summary>PID: 100  | Type: read</summary>
+	public System.Object Transportstreamsoverview {get { return GetParameter(100); }set { SetParameter(100, value); }}
 	/// <summary>PID: 1001  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Transportstreamsid_1001 {get { return GetParameter(1001); }set { SetParameter(1001, value); }}

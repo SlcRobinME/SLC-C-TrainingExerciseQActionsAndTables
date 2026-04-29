@@ -18,7 +18,7 @@
 	<DeviceOID>1</DeviceOID>
 	<ElementType>Encoder</ElementType>
 	<Type relativeTimers="true">virtual</Type>
-	<Display defaultPage="General" pageOrder="General" wideColumnPages=""/>
+	<Display defaultPage="General" pageOrder="General; Tree View" wideColumnPages=""/>
 	<SNMP includepages="true">auto</SNMP>
 	<Compliancies>
 		<CassandraReady>true</CassandraReady>
@@ -69,6 +69,26 @@
 					</Discreet>
 				</Discreets>
 			</Measurement>
+		</Param>
+		<Param id="100">
+			<Name>TransportStreamsOverview</Name>
+			<Description>Transport Streams Overview</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Tree View</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
 		</Param>
 		<!-- Transport streams table -->
 		<Param id="1000" trending="false">
@@ -415,8 +435,17 @@
 		</Param>
 	</Params>
 	<Relations>
-		<Relation path="1000;2000"/>
+		<Relation path="1000;2000" options="includeInAlarms:topology"/>
 	</Relations>
+	<TreeControls>
+		<TreeControl parameterId="100" readOnly="true">
+			<Hierarchy>
+				<Table id="1000"/>
+				<Table id="2000" parent="1000"/>
+			</Hierarchy>
+			<OverrideDisplayColumns>1002,2002</OverrideDisplayColumns>
+		</TreeControl>
+	</TreeControls>
 	<QActions>
 		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile"/>
 		<QAction id="2" name="After Startup" encoding="csharp" triggers="2"/>
