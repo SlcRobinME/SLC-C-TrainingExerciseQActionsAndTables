@@ -394,6 +394,96 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			}
 		}
 
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Execute"/> populates the transport
+		/// streams table with the correct row values from the loaded JSON.
+		/// </summary>
+		[TestMethod]
+		public void Execute_Should_Populate_TransportStream_Table_With_Correct_Values()
+		{
+			// Arrange
+			var fakeRoot = BuildRoot(new List<TransportStream>
+			{
+				BuildTs(tsId: 1, name: "TS1", multicast: "239.0.0.1", sourceIp: "192.168.1.1", networkId: 100,
+					services: new List<Service> { BuildService() }),
+			});
+
+			var mockLoader = new Mock<IJsonLoader>();
+			mockLoader.Setup(l => l.Load(It.IsAny<string>())).Returns(fakeRoot);
+
+			var protocolMock = new SLProtocolMock();
+
+			// Act
+			new TransportStreamService(loader: mockLoader.Object).Execute(protocolMock.Object);
+
+			// Assert
+			var expectedTs = new TransportstreamsQActionRow
+			{
+				Transportstreamsid_1001 = "1",
+				Transportstreamsname_1002 = "TS1",
+				Transportstreamsmulticast_1003 = "239.0.0.1",
+				Transportstreamsip_1004 = "192.168.1.1",
+				Transportstreamsnetworkid_1005 = "100",
+				Transportstreamsnumberofservices_1006 = 1.0,
+			};
+
+			protocolMock.Assert().Table(Parameter.Transportstreams.tablePid).RowCount.Should().Be(1);
+			protocolMock.Assert()
+				.Table(Parameter.Transportstreams.tablePid)
+				.Row<TransportstreamsQActionRow>("1")
+				.Should().BeEquivalentTo(expectedTs, options => options
+					.ExcludingMissingMembers()
+					.Excluding(r => r.Columns)
+					.Excluding(r => r.Transportstreamslastpolled_1007)
+					.Excluding(r => r.Transportstreamslastpolled));
+		}
+
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Execute"/> populates the services
+		/// table with the correct row values from the loaded JSON.
+		/// </summary>
+		[TestMethod]
+		public void Execute_Should_Populate_Services_Table_With_Correct_Values()
+		{
+			// Arrange
+			var fakeRoot = BuildRoot(new List<TransportStream>
+			{
+				BuildTs(tsId: 1, name: "TS1",
+					services: new List<Service> { BuildService(serviceId: 10, name: "SVC1", type: "TV", provider: "Provider1", bitrate: 50.0) }),
+			});
+
+			var mockLoader = new Mock<IJsonLoader>();
+			mockLoader.Setup(l => l.Load(It.IsAny<string>())).Returns(fakeRoot);
+
+			var protocolMock = new SLProtocolMock();
+
+			// Act
+			new TransportStreamService(loader: mockLoader.Object).Execute(protocolMock.Object);
+
+			// Assert
+			var expectedSvc = new ServicesQActionRow
+			{
+				Servicesinstanceid_2001 = "1/10",
+				Servicesid_2002 = 10.0,
+				Servicesname_2003 = "SVC1",
+				Servicestype_2004 = "TV",
+				Servicesprovider_2005 = "Provider1",
+				Servicesbitrate_2006 = 50.0,
+				Servicestransportstreamid_2007 = "1",
+				Servicestransportstreamnameservice_2009 = "TS1",
+			};
+
+			protocolMock.Assert().Table(Parameter.Services.tablePid).RowCount.Should().Be(1);
+			protocolMock.Assert()
+				.Table(Parameter.Services.tablePid)
+				.Row<ServicesQActionRow>("1/10")
+				.Should().BeEquivalentTo(expectedSvc, options => options
+					.ExcludingMissingMembers()
+					.Excluding(r => r.Columns)
+					.Excluding(r => r.Serviceslastpolled_2008)
+					.Excluding(r => r.Serviceslastpolled));
+		}
+
 		private static Root BuildRoot(List<TransportStream> streams) =>
 				new Root { TransportStreams = streams };
 
