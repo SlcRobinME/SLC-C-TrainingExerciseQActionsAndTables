@@ -490,7 +490,7 @@
 		</Param>
 	</Params>
 	<Relations>
-		<Relation path="1000;2000"/>
+		<Relation path="1000;2000" options="includeInAlarms:topology"/>
 	</Relations>
 	<TreeControls>
 		<TreeControl parameterId="30" readOnly="true">
