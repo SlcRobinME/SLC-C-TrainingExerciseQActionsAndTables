@@ -284,17 +284,8 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			sut.Execute(protocolMock.Object);
 
 			// Assert
-			protocolMock.Verify(
-				p => p.FillArray(
-					Parameter.Transportstreams.tablePid,
-					It.IsAny<List<object[]>>(),
-					NotifyProtocol.SaveOption.Full), Times.Once);
-
-			protocolMock.Verify(
-				p => p.FillArray(
-					Parameter.Services.tablePid,
-					It.IsAny<List<object[]>>(),
-					NotifyProtocol.SaveOption.Full), Times.Once);
+			protocolMock.Assert().Table(Parameter.Transportstreams.tablePid).RowCount.Should().Be(1);
+			protocolMock.Assert().Table(Parameter.Services.tablePid).RowCount.Should().Be(1);
 		}
 
 		/// <summary>
@@ -349,17 +340,8 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 				sut.Execute(protocolMock.Object, tempFile);
 
 				// Assert
-				protocolMock.Verify(
-					p => p.FillArray(
-						Parameter.Transportstreams.tablePid,
-						It.IsAny<List<object[]>>(),
-						NotifyProtocol.SaveOption.Full), Times.Once);
-
-				protocolMock.Verify(
-					p => p.FillArray(
-						Parameter.Services.tablePid,
-						It.IsAny<List<object[]>>(),
-						NotifyProtocol.SaveOption.Full), Times.Once);
+				protocolMock.Assert().Table(Parameter.Transportstreams.tablePid).RowCount.Should().Be(1);
+				protocolMock.Assert().Table(Parameter.Services.tablePid).RowCount.Should().Be(1);
 			}
 			finally
 			{
