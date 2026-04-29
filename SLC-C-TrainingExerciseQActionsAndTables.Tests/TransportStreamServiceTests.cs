@@ -56,26 +56,42 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			var (tsRows, svcRows) = service.Map(root);
 
 			// Assert – TS
-			Assert.AreEqual(1, tsRows.Count);
-			var ts = tsRows[0];
-			Assert.AreEqual("1", ts.Transportstreamsid_1001);
-			Assert.AreEqual("TS1", ts.Transportstreamsname_1002);
-			Assert.AreEqual("239.0.0.1", ts.Transportstreamsmulticast_1003);
-			Assert.AreEqual("192.168.1.1", ts.Transportstreamsip_1004);
-			Assert.AreEqual("100", ts.Transportstreamsnetworkid_1005);
-			Assert.AreEqual(1.0, ts.Transportstreamsnumberofservices_1006);
+			var expectedTs = new TransportstreamsQActionRow
+			{
+				Transportstreamsid_1001 = "1",
+				Transportstreamsname_1002 = "TS1",
+				Transportstreamsmulticast_1003 = "239.0.0.1",
+				Transportstreamsip_1004 = "192.168.1.1",
+				Transportstreamsnetworkid_1005 = "100",
+				Transportstreamsnumberofservices_1006 = 1.0,
+			};
+
+			tsRows.Should().HaveCount(1);
+			tsRows[0].Should().BeEquivalentTo(expectedTs, options => options
+				.ExcludingMissingMembers()
+				.Excluding(r => r.Columns)
+				.Excluding(r => r.Transportstreamslastpolled_1007)
+				.Excluding(r => r.Transportstreamslastpolled));
 
 			// Assert – Service
-			Assert.AreEqual(1, svcRows.Count);
-			var svc = svcRows[0];
-			Assert.AreEqual("1/10", svc.Servicesinstanceid_2001);
-			Assert.AreEqual(10.0, svc.Servicesid_2002);
-			Assert.AreEqual("Service1", svc.Servicesname_2003);
-			Assert.AreEqual("TV", svc.Servicestype_2004);
-			Assert.AreEqual("Provider1", svc.Servicesprovider_2005);
-			Assert.AreEqual(50.0, svc.Servicesbitrate_2006);
-			Assert.AreEqual("1", svc.Servicestransportstreamid_2007);
-			Assert.AreEqual("TS1", svc.Servicestransportstreamnameservice_2009);
+			var expectedSvc = new ServicesQActionRow
+			{
+				Servicesinstanceid_2001 = "1/10",
+				Servicesid_2002 = 10.0,
+				Servicesname_2003 = "Service1",
+				Servicestype_2004 = "TV",
+				Servicesprovider_2005 = "Provider1",
+				Servicesbitrate_2006 = 50.0,
+				Servicestransportstreamid_2007 = "1",
+				Servicestransportstreamnameservice_2009 = "TS1",
+			};
+
+			svcRows.Should().HaveCount(1);
+			svcRows[0].Should().BeEquivalentTo(expectedSvc, options => options
+				.ExcludingMissingMembers()
+				.Excluding(r => r.Columns)
+				.Excluding(r => r.Serviceslastpolled_2008)
+				.Excluding(r => r.Serviceslastpolled));
 		}
 
 		/// <summary>
@@ -95,9 +111,9 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			var root = BuildRoot(new List<TransportStream> { BuildTs(services: services) });
 			var (tsRows, svcRows) = new TransportStreamService().Map(root);
 
-			Assert.HasCount(1, tsRows);
-			Assert.AreEqual(0.0, tsRows[0].Transportstreamsnumberofservices_1006);
-			Assert.HasCount(0, svcRows);
+			tsRows.Should().HaveCount(1);
+			tsRows[0].Transportstreamsnumberofservices_1006.Should().Be(0.0);
+			svcRows.Should().BeEmpty();
 		}
 
 		/// <summary>
@@ -116,13 +132,17 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 		public void Should_Produce_Correct_Row_Count(int tsCount, int totalServices, int expectedTs, int expectedSvc)
 		{
 			var streams = Enumerable.Range(1, tsCount)
-					.Select((id, index) => BuildTs(
-						tsId: id,
-						services: index == 0 && totalServices > 0 ? Enumerable.Range(1, totalServices).Select(s => BuildService(s)).ToList() : null))
-					.ToList();
+				.Select((id, index) => BuildTs(
+					tsId: id,
+					services: index == 0 && totalServices > 0
+						? Enumerable.Range(1, totalServices).Select(s => BuildService(s)).ToList()
+						: null))
+				.ToList();
+
 			var (tsRows, svcRows) = new TransportStreamService().Map(BuildRoot(streams));
-			Assert.AreEqual(expectedTs, tsRows.Count);
-			Assert.AreEqual(expectedSvc, svcRows.Count);
+
+			tsRows.Should().HaveCount(expectedTs);
+			svcRows.Should().HaveCount(expectedSvc);
 		}
 
 		/// <summary>
@@ -142,10 +162,9 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			var (_, svcRows) = new TransportStreamService().Map(root);
 
 			var keys = svcRows.Select(r => r.Servicesinstanceid_2001).ToList();
-			CollectionAssert.AllItemsAreUnique(keys);
-			CollectionAssert.Contains(keys, "1/10");
-			CollectionAssert.Contains(keys, "1/20");
-			CollectionAssert.Contains(keys, "2/10");
+
+			keys.Should().OnlyHaveUniqueItems();
+			keys.Should().Contain(new[] { "1/10", "1/20", "2/10" });
 		}
 
 		/// <summary>
@@ -159,8 +178,8 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 
 			var (tsRows, svcRows) = new TransportStreamService().Map(root);
 
-			Assert.AreEqual(0, tsRows.Count);
-			Assert.AreEqual(0, svcRows.Count);
+			tsRows.Should().BeEmpty();
+			svcRows.Should().BeEmpty();
 		}
 
 		/// <summary>
@@ -174,7 +193,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			Action act = () => new TransportStreamService().Map(null);
 
 			// Assert
-			Assert.Throws<NullReferenceException>(act);
+			act.Should().Throw<NullReferenceException>();
 		}
 
 		/// <summary>
@@ -191,7 +210,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 
 			var (_, svcRows) = new TransportStreamService().Map(root);
 
-			Assert.AreEqual(12.345, svcRows[0].Servicesbitrate_2006);
+			svcRows[0].Servicesbitrate_2006.Should().Be(12.345);
 		}
 
 		/// <summary>
@@ -212,7 +231,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			});
 			var (_, svcRows) = new TransportStreamService(maxBitrate: maxBitrate).Map(root);
 			double bitrate = (double)svcRows[0].Servicesbitrate_2006;
-			Assert.IsTrue(bitrate >= 0 && bitrate <= maxBitrate, $"Bitrate {bitrate} is not in the range [0, {maxBitrate}]");
+			bitrate.Should().BeInRange(0, maxBitrate, $"Bitrate {bitrate} is not in the range [0, {maxBitrate}]");
 		}
 
 		/// <summary>
@@ -235,7 +254,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			var (_, svcRows) = new TransportStreamService(
 				rng: new Random(42), decimals: decimals).Map(root);
 			double bitrate = (double)svcRows[0].Servicesbitrate_2006;
-			Assert.AreEqual(Math.Round(bitrate, decimals), bitrate, $"Bitrate {bitrate} has more than {decimals} decimal places");
+			bitrate.Should().Be(Math.Round(bitrate, decimals), $"Bitrate {bitrate} has more than {decimals} decimal places");
 		}
 
 		/// <summary>
@@ -276,7 +295,7 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 					Parameter.Services.tablePid,
 					It.IsAny<List<object[]>>(),
 					NotifyProtocol.SaveOption.Full), Times.Once);
-					}
+		}
 
 		/// <summary>
 		/// Verifies that <see cref="TransportStreamService.Execute"/> forwards the provided
