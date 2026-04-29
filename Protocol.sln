@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.4.11626.88 stable
+VisualStudioVersion = 18.4.11626.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Internal", "Internal", "{B0404763-CB1B-4F0E-A98C-871D284B0429}"
 	ProjectSection(SolutionItems) = preProject
@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAction_3", "QAction_3\QAct
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAction_4", "QAction_4\QAction_4.csproj", "{2C0C5AE5-3FFB-6668-4DAC-B1539D36A99E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAction1_Tests", "QAction1_Tests\QAction1_Tests.csproj", "{D35B8686-EC36-425D-9F7F-B526D5424F68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{2C0C5AE5-3FFB-6668-4DAC-B1539D36A99E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C0C5AE5-3FFB-6668-4DAC-B1539D36A99E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C0C5AE5-3FFB-6668-4DAC-B1539D36A99E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35B8686-EC36-425D-9F7F-B526D5424F68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35B8686-EC36-425D-9F7F-B526D5424F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35B8686-EC36-425D-9F7F-B526D5424F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35B8686-EC36-425D-9F7F-B526D5424F68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
