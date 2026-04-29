@@ -143,7 +143,7 @@ namespace QAction1_Tests
     public class TablePopulationTests
     {
         [TestMethod]
-        public void PollData_ValidJson_TransportStreamsTableRowContainsCorrectValues()
+        public void TransportStreamsTable_AddRow_RowKeyExists()
         {
             //Arrange
             var protocolMock = new SLProtocolMock<ConcreteSLProtocolExt>();
