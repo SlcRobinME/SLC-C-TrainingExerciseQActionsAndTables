@@ -321,6 +321,98 @@ namespace Skyline.DataMiner.Utils.UnitTestingFramework.Tests.Protocol
 			mockLoader.Verify(l => l.Load(customPath), Times.Once);
 		}
 
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Execute"/> correctly loads, maps,
+		/// and fills both tables using the real <see cref="JsonLoader"/> with a valid JSON file.
+		/// </summary>
+		[TestMethod]
+		public void Execute_Should_Load_And_Fill_Tables_Via_Real_Loader()
+		{
+			// Arrange
+			string tempFile = Path.GetTempFileName();
+			try
+			{
+				// Use the same Root/TransportStream/Service objects to serialize —
+				// this guarantees JSON property names always match the model exactly
+				var fakeRoot = BuildRoot(new List<TransportStream>
+				{
+					BuildTs(tsId: 1, services: new List<Service> { BuildService() }),
+				});
+
+				string json = Newtonsoft.Json.JsonConvert.SerializeObject(fakeRoot);
+				File.WriteAllText(tempFile, json);
+
+				var protocolMock = new SLProtocolMock();
+				var sut = new TransportStreamService(); // real JsonLoader
+
+				// Act
+				sut.Execute(protocolMock.Object, tempFile);
+
+				// Assert
+				protocolMock.Verify(
+					p => p.FillArray(
+						Parameter.Transportstreams.tablePid,
+						It.IsAny<List<object[]>>(),
+						NotifyProtocol.SaveOption.Full), Times.Once);
+
+				protocolMock.Verify(
+					p => p.FillArray(
+						Parameter.Services.tablePid,
+						It.IsAny<List<object[]>>(),
+						NotifyProtocol.SaveOption.Full), Times.Once);
+			}
+			finally
+			{
+				File.Delete(tempFile);
+			}
+		}
+
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Execute"/> throws when the file
+		/// does not exist, propagating the error from the real <see cref="JsonLoader"/>.
+		/// </summary>
+		[TestMethod]
+		public void Execute_Should_Throw_When_File_Does_Not_Exist()
+		{
+			// Arrange
+			var protocolMock = new SLProtocolMock();
+			var sut = new TransportStreamService(); // real JsonLoader
+			string badPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".json");
+
+			// Act
+			Action act = () => sut.Execute(protocolMock.Object, badPath);
+
+			// Assert
+			act.Should().Throw<Exception>();
+		}
+
+		/// <summary>
+		/// Verifies that <see cref="TransportStreamService.Execute"/> throws when the file
+		/// contains invalid JSON, propagating the deserialization error from <see cref="JsonLoader"/>.
+		/// </summary>
+		[TestMethod]
+		public void Execute_Should_Throw_When_Json_Is_Invalid()
+		{
+			// Arrange
+			string tempFile = Path.GetTempFileName();
+			try
+			{
+				File.WriteAllText(tempFile, "not valid json {{{}}}");
+				var protocolMock = new SLProtocolMock();
+				var sut = new TransportStreamService(); // real JsonLoader
+
+				// Act
+				Action act = () => sut.Execute(protocolMock.Object, tempFile);
+
+				// Assert
+				act.Should().Throw<Exception>();
+			}
+			finally
+			{
+				File.Delete(tempFile);
+			}
+		}
+
 		private static Root BuildRoot(List<TransportStream> streams) =>
 				new Root { TransportStreams = streams };
 

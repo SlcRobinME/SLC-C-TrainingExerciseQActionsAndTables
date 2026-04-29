@@ -10,7 +10,6 @@ public static class QAction
     /// The QAction entry point.
     /// </summary>
     /// <param name="protocol">Link with SLProtocol process.</param>
-    /// <param name="service">DI for the transport stream service.</param>
     public static void Run(SLProtocolExt protocol)
     {
         try
