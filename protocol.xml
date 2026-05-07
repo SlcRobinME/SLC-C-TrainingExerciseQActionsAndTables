@@ -24,6 +24,9 @@
 		<CassandraReady>true</CassandraReady>
 		<MinimumRequiredVersion>10.4.0.0 - 14003</MinimumRequiredVersion>
 	</Compliancies>
+	<Relations>
+		<Relation path="1000;2000" options="includeInAlarms:topology"/>
+	</Relations>
 	<Params>
 		<Param id="30">
 			<Name>TransportStreamTree</Name>
@@ -489,9 +492,6 @@
 			</Measurement>
 		</Param>
 	</Params>
-	<Relations>
-		<Relation path="1000;2000" options="includeInAlarms:topology"/>
-	</Relations>
 	<TreeControls>
 		<TreeControl parameterId="30" readOnly="true">
 			<Hierarchy>
