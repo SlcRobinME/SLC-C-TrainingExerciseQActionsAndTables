@@ -203,6 +203,7 @@
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<Decimals>1</Decimals>
 			</Display>
 			<Measurement>
 				<Type>number</Type>
@@ -268,7 +269,6 @@
 				<ColumnOption idx="2" pid="8" type="retrieved" options="" />
 				<ColumnOption idx="3" pid="9" type="retrieved" options="" />
 				<ColumnOption idx="4" pid="10" type="retrieved" options="" />
-				<ColumnOption idx="5" pid="11" type="retrieved" options="" />
 			</ArrayOptions>
 			<Information>
 				<Subtext>Transportstreams services information</Subtext>
@@ -284,7 +284,7 @@
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:6|0-7|1-8|2-9|3-10|4-11|5,width:100-100-100-111-101-156,sort:STRING-STRING-STRING-STRING-INT-INT,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:6|0-7|1-8|2-9|3-10|4,width:100-100-100-111-101,sort:STRING-STRING-STRING-STRING-INT,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="103" trending="false">
@@ -308,7 +308,7 @@
 		</Param>
 		
 		<Param id="11" trending="false">
-			<Name>lastUpdate</Name>
+			<Name>transportstreamslastUpdate</Name>
 			<Description>Last Update</Description>
 			<Type>read</Type>
 			<Information>
@@ -359,29 +359,49 @@
 			</Measurement>
 		</Param>
 		
+		<Param id="13">
+			<Name>transportstreamDummy</Name>
+			<Description>Dummy param for executing QAction 3</Description>
+			<Type>dummy</Type>
+		</Param>
+		
 	</Params>
 
 	<QActions>
 		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile" />
+		<QAction id="3" name="getTransportstreamData" encoding="csharp" triggers="13">
+		</QAction>
 	</QActions>
 
 	<Groups>
-
+		<Group id="1">
+			<Name>getTransportstreamsData</Name>
+			<Description>Group for fetching transportstreams data </Description>
+			<Type>action</Type>
+			<Content>
+				<Action>1</Action>
+			</Content>
+		</Group>
 	</Groups>
 
 	<Triggers>
 	</Triggers>
 
 	<Actions>
-
+		<Action id="1">
+			<Name>fetchTransportstreamsData</Name>
+			<On id="13">parameter</On>
+			<Type>run actions</Type>
+		</Action>
 	</Actions>
 
 	<Timers>
 		<Timer id="1">
-			<Name>1s timer</Name>
-			<Time initial="true">1000</Time>
+			<Name>1min timer</Name>
+			<Time initial="true">60000</Time>
 			<Interval>75</Interval>
 			<Content>
+				<Group>1</Group>
 			</Content>
 		</Timer>
 	</Timers>
