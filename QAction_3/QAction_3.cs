@@ -14,11 +14,13 @@ using static Skyline.DataMiner.Scripting.Parameter;
 /// </summary>
 public static class QAction
 {
-	/// <summary>
-	/// The QAction entry point.
-	/// </summary>
-	/// <param name="protocol">Link with SLProtocol process.</param>
-	public static void Run(SLProtocol protocol)
+    /// <summary>
+    /// The QAction entry point.
+    /// </summary>
+    /// <param name="protocol">Link with SLProtocol process.</param>
+    /// 
+    private static readonly Random Random = new Random();
+    public static void Run(SLProtocol protocol)
 	{
 		try
 		{
@@ -40,30 +42,30 @@ public static class QAction
 
             foreach (var ts in data.TransportStreams)
             {
-                var tsRow = new object[]
-                    {
-                        ts.TsId.ToString(),
-                        ts.TsName,
-                        ts.Multicast,
-                        ts.SourceIp,
-                        ts.NetworkId,
-                        DateTime.Now.ToOADate(),
-                    };
+                TransportstreamsQActionRow row = new TransportstreamsQActionRow
+                {
+                    Transportstreamsid_1 = ts.TsId.ToString(),
+                    Transportstreamsname_2 = ts.TsName,
+                    Transportstreamsmulticast_3 = ts.Multicast,
+                    Transportstreamssourceip_4 = ts.SourceIp,
+                    Transportstreamsnetworkid_5 = ts.NetworkId,
+                    Transportstreamslastupdate_11 = DateTime.Now.ToOADate(),
+                };
 
-                UpsertRow(protocol, Parameter.Transportstreams.tablePid, ts.TsId.ToString(), tsRow);
+                UpsertRow(protocol, Parameter.Transportstreams.tablePid, row.Key, row.ToObjectArray());
 
                 foreach (var s in ts.Services)
                 {
-                    var serviceRow = new object[]
-                        {
-                            s.ServiceId.ToString(),
-                            s.ServiceName,
-                            s.ServiceType,
-                            s.ServiceProvider,
-                            s.ServiceBitrate,
-                        };
+                    ServiceQActionRow sr = new ServiceQActionRow
+                    {
+                        Serviceid_6 = s.ServiceId.ToString(),
+                        Servicename_7 = s.ServiceName,
+                        Servicetype_8 = s.ServiceType,
+                        Serviceprovider_9 = s.ServiceProvider,
+                        Servicebitrate_10 = Random.NextDouble() * 30,
+                    };
 
-                    UpsertRow(protocol, Parameter.Service.tablePid, s.ServiceId.ToString(), serviceRow);
+                    UpsertRow(protocol, Parameter.Service.tablePid, sr.Key, sr.ToObjectArray());
                 }
             }
 
@@ -96,22 +98,22 @@ public class TransportStream
 	[JsonProperty("ts_id")]
 	public int TsId { get; set; }
 
-    [JsonProperty("ts_name")]
-    public string TsName { get; set; }
+	[JsonProperty("ts_name")]
+	public string TsName { get; set; }
 
-    [JsonProperty("multicast")]
-    public string Multicast { get; set; }
+	[JsonProperty("multicast")]
+	public string Multicast { get; set; }
 
-    [JsonProperty("sourceIp")]
-    public string SourceIp { get; set; }
+	[JsonProperty("sourceIp")]
+	public string SourceIp { get; set; }
 
-    [JsonProperty("network_id")]
-    public int NetworkId { get; set; }
+	[JsonProperty("network_id")]
+	public int NetworkId { get; set; }
 
-    public string LastUpdate { get; set; }
+	public string LastUpdate { get; set; }
 
 	[JsonProperty("services")]
-    public List<Services> Services { get; set; }
+	public List<Services> Services { get; set; }
 }
 
 public class Services

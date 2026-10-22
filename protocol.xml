@@ -31,6 +31,7 @@
 			<Description>Transport Stream ID</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(ID of the transportstream)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>numeric text</RawType>
@@ -46,9 +47,11 @@
 		</Param>
 		<Param id="2" trending="false">
 			<Name>transportstreamsName</Name>
+			
 			<Description>Transport Stream Name</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(Name of the transportstream)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>text</RawType>
@@ -67,6 +70,7 @@
 			<Description>Transport Stream Multicast</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(Multicast address)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>text</RawType>
@@ -85,6 +89,7 @@
 			<Description>Transport Stream Source IP</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(Source IP address)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>text</RawType>
@@ -103,15 +108,20 @@
 			<Description>(Transport Stream Network ID)</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(Transportstreams Network ID)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>numeric text</RawType>
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<!-- SuppressValidator 2.11.1 No need for the range value for this param -->
+			<!-- SuppressValidator 2.9.7 No need for the units value for this param -->
 			<Display>
 				<RTDisplay>true</RTDisplay>
 			</Display>
+			<!-- /SuppressValidator 2.9.7 -->
+			<!-- /SuppressValidator 2.11.1 -->
 			<Measurement>
 				<Type>number</Type>
 			</Measurement>
@@ -122,6 +132,7 @@
 			<Description>Service ID</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(Service ID)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>numeric text</RawType>
@@ -140,6 +151,7 @@
 			<Description>Service Name</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(Service Name)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>text</RawType>
@@ -158,6 +170,7 @@
 			<Description>Service Type</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(Service Type)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>text</RawType>
@@ -176,6 +189,7 @@
 			<Description>Service Provider</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(Service Provider)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>text</RawType>
@@ -194,6 +208,7 @@
 			<Description>Service Bitrate</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(Current service bitrate)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>numeric text</RawType>
@@ -201,10 +216,15 @@
 				<LengthType>next param</LengthType>
 				<Decimals>2</Decimals>
 			</Interprete>
+			<!-- SuppressValidator 2.11.1 No need for the range value for this param -->
+			<!-- SuppressValidator 2.9.7 No need for the units value for this param -->
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>1</Decimals>
+				<Units>Mbps</Units>
 			</Display>
+			<!-- /SuppressValidator 2.9.7 -->
+			<!-- /SuppressValidator 2.11.1 -->
 			<Measurement>
 				<Type>number</Type>
 			</Measurement>
@@ -215,12 +235,12 @@
 			<Description>Transportstreams</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="1" type="retrieved" options="" />
-				<ColumnOption idx="1" pid="2" type="retrieved" options="" />
-				<ColumnOption idx="2" pid="3" type="retrieved" options="" />
-				<ColumnOption idx="3" pid="4" type="retrieved" options="" />
-				<ColumnOption idx="4" pid="5" type="retrieved" options="" />
-				<ColumnOption idx="5" pid="11" type="retrieved" options="" />
+				<ColumnOption idx="0" pid="1" type="retrieved" options=";save" />
+				<ColumnOption idx="1" pid="2" type="retrieved" options=";save" />
+				<ColumnOption idx="2" pid="3" type="retrieved" options=";save" />
+				<ColumnOption idx="3" pid="4" type="retrieved" options=";save" />
+				<ColumnOption idx="4" pid="5" type="retrieved" options=";save" />
+				<ColumnOption idx="5" pid="11" type="retrieved" options=";save" />
 			</ArrayOptions>
 			<Information>
 				<Subtext>Treansportstreams information</Subtext>
@@ -231,7 +251,7 @@
 					<Position>
 						<Page>General</Page>
 						<Column>0</Column>
-						<Row>0</Row>
+						<Row>1</Row>
 					</Position>
 				</Positions>
 			</Display>
@@ -264,11 +284,12 @@
 			<Description>Services</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="6" type="retrieved" options="" />
-				<ColumnOption idx="1" pid="7" type="retrieved" options="" />
-				<ColumnOption idx="2" pid="8" type="retrieved" options="" />
-				<ColumnOption idx="3" pid="9" type="retrieved" options="" />
-				<ColumnOption idx="4" pid="10" type="retrieved" options="" />
+				<ColumnOption idx="0" pid="6" type="retrieved" options=";foreignKey=100" />
+				<ColumnOption idx="1" pid="7" type="retrieved" options=";foreignKey=100" />
+				<ColumnOption idx="2" pid="8" type="retrieved" options=";foreignKey=100" />
+				<ColumnOption idx="3" pid="9" type="retrieved" options=";foreignKey=100" />
+				<ColumnOption idx="4" pid="10" type="retrieved" options=";foreignKey=100" />
+				<ColumnOption idx="5" pid="14" type="retrieved" options=";foreignKey=100" />
 			</ArrayOptions>
 			<Information>
 				<Subtext>Transportstreams services information</Subtext>
@@ -279,14 +300,15 @@
 					<Position>
 						<Page>General</Page>
 						<Column>0</Column>
-						<Row>1</Row>
+						<Row>2</Row>
 					</Position>
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:6|0-7|1-8|2-9|3-10|4,width:100-100-100-111-101,sort:STRING-STRING-STRING-STRING-INT,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:6|0-7|1-8|2-9|3-10|4,width:100-111-104-126-116,sort:STRING-STRING-STRING-STRING-INT,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
+		
 		<Param id="103" trending="false">
 			<Name>serviceInstance</Name>
 			<Description>Instance (Services)</Description>
@@ -312,6 +334,7 @@
 			<Description>Last Update</Description>
 			<Type>read</Type>
 			<Information>
+				<Subtext>(Last time information was updated)</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>numeric text</RawType>
@@ -344,7 +367,7 @@
 					<Position>
 						<Page>General</Page>
 						<Column>0</Column>
-						<Row>2</Row>
+						<Row>0</Row>
 					</Position>
 				</Positions>
 			</Display>
@@ -352,7 +375,7 @@
 				<Type width="110">button</Type>
 				<Discreets>
 					<Discreet>
-						<Display>Poll</Display>
+						<Display>Poll data</Display>
 						<Value>1</Value>
 					</Discreet>
 				</Discreets>
@@ -365,11 +388,35 @@
 			<Type>dummy</Type>
 		</Param>
 		
+		<Param id="14" trending="false">
+			<Name>serviceTransportStreamId</Name>
+			<Description>Transport Stream ID 2</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>(Foreign key to the transportstreams table)</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		
 	</Params>
 
+	<Relations>
+		<Relation path="100;102" name="TransportstreamsToServices" />
+	</Relations>
+	
 	<QActions>
 		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile" />
-		<QAction id="3" name="getTransportstreamData" encoding="csharp" triggers="13">
+		<QAction id="3" name="getTransportstreamData" encoding="csharp" triggers="13;12">
 		</QAction>
 	</QActions>
 
