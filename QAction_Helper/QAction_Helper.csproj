@@ -5,8 +5,11 @@
     <Copyright>© Skyline Communications</Copyright>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Moq" Version="4.21.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.5.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="Skyline.DataMiner.Dev.Protocol" Version="10.4.0.24" />
+    <PackageReference Include="Skyline.DataMiner.Dev.Protocol" Version="10.6.10.1" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>

@@ -284,12 +284,11 @@
 			<Description>Services</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
-				<ColumnOption idx="0" pid="6" type="retrieved" options=";foreignKey=100" />
-				<ColumnOption idx="1" pid="7" type="retrieved" options=";foreignKey=100" />
-				<ColumnOption idx="2" pid="8" type="retrieved" options=";foreignKey=100" />
-				<ColumnOption idx="3" pid="9" type="retrieved" options=";foreignKey=100" />
-				<ColumnOption idx="4" pid="10" type="retrieved" options=";foreignKey=100" />
-				<ColumnOption idx="5" pid="14" type="retrieved" options=";foreignKey=100" />
+				<ColumnOption idx="0" pid="6" type="retrieved" options=";" />
+				<ColumnOption idx="1" pid="7" type="retrieved" options=";" />
+				<ColumnOption idx="2" pid="8" type="retrieved" options=";" />
+				<ColumnOption idx="3" pid="9" type="retrieved" options=";" />
+				<ColumnOption idx="4" pid="10" type="retrieved" options=";" />
 			</ArrayOptions>
 			<Information>
 				<Subtext>Transportstreams services information</Subtext>
@@ -307,8 +306,7 @@
 			<Measurement>
 				<Type options="tab=columns:6|0-7|1-8|2-9|3-10|4,width:100-111-104-126-116,sort:STRING-STRING-STRING-STRING-INT,lines:25,filter:true">table</Type>
 			</Measurement>
-		</Param>
-		
+		</Param>		
 		<Param id="103" trending="false">
 			<Name>serviceInstance</Name>
 			<Description>Instance (Services)</Description>
@@ -388,31 +386,7 @@
 			<Type>dummy</Type>
 		</Param>
 		
-		<Param id="14" trending="false">
-			<Name>serviceTransportStreamId</Name>
-			<Description>Transport Stream ID 2</Description>
-			<Type>read</Type>
-			<Information>
-				<Subtext>(Foreign key to the transportstreams table)</Subtext>
-			</Information>
-			<Interprete>
-				<RawType>other</RawType>
-				<Type>string</Type>
-				<LengthType>next param</LengthType>
-			</Interprete>
-			<Display>
-				<RTDisplay>true</RTDisplay>
-			</Display>
-			<Measurement>
-				<Type>string</Type>
-			</Measurement>
-		</Param>
-		
 	</Params>
-
-	<Relations>
-		<Relation path="100;102" name="TransportstreamsToServices" />
-	</Relations>
 	
 	<QActions>
 		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile" />

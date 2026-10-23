@@ -139,11 +139,6 @@ public static class Parameter
 			public const int servicebitrate_10 = 10;
 			/// <summary>PID: 10 | Type: read</summary>
 			public const int servicebitrate = 10;
-			/// <summary>PID: 14 | Type: read</summary>
-			[EditorBrowsable(EditorBrowsableState.Never)]
-			public const int servicetransportstreamid_14 = 14;
-			/// <summary>PID: 14 | Type: read</summary>
-			public const int servicetransportstreamid = 14;
 			public class Write
 			{
 			}
@@ -175,11 +170,6 @@ public static class Parameter
 			public const int servicebitrate_10 = 4;
 			/// <summary>IDX: 4 | Type: read</summary>
 			public const int servicebitrate = 4;
-			/// <summary>IDX: 5 | Type: read</summary>
-			[EditorBrowsable(EditorBrowsableState.Never)]
-			public const int servicetransportstreamid_14 = 5;
-			/// <summary>IDX: 5 | Type: read</summary>
-			public const int servicetransportstreamid = 5;
 		}
 	}
 }
@@ -224,8 +214,6 @@ public interface SLProtocolExt : SLProtocol
 	object Forcepoll_12 { get; set; }
 	object Forcepoll { get; set; }
 	object Transportstreamdummy_dummy { get; set; }
-	object Servicetransportstreamid_14 { get; set; }
-	object Servicetransportstreamid { get; set; }
 	object Transportstreamsinstance_101 { get; set; }
 	object Transportstreamsinstance { get; set; }
 	object Serviceinstance_103 { get; set; }
@@ -299,11 +287,6 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Forcepoll {get { return Write.Forcepoll; }set { Write.Forcepoll = value; }}
 	/// <summary>PID: 13  | Type: dummy</summary>
 	public System.Object Transportstreamdummy_dummy {get { return GetParameter(13); }set { SetParameter(13, value); }}
-	/// <summary>PID: 14  | Type: read</summary>
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public System.Object Servicetransportstreamid_14 {get { return GetParameter(14); }set { SetParameter(14, value); }}
-	/// <summary>PID: 14  | Type: read</summary>
-	public System.Object Servicetransportstreamid {get { return GetParameter(14); }set { SetParameter(14, value); }}
 	/// <summary>PID: 101  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Transportstreamsinstance_101 {get { return GetParameter(101); }set { SetParameter(101, value); }}
@@ -373,12 +356,6 @@ public class TransportstreamsQActionRow : QActionTableRow
 	public TransportstreamsQActionRow(System.Object[] oRow) : base(0, 6, oRow) { }
 	public static implicit operator TransportstreamsQActionRow(System.Object[] source) { return new TransportstreamsQActionRow(source); }
 	public static implicit operator System.Object[](TransportstreamsQActionRow source) { return source.ToObjectArray(); }
-	public System.String[] GetChildKeysServiceServiceid(SLProtocol protocol) { return (System.String[])protocol.NotifyProtocol(196, 6, Key); }
-	public System.String[] GetChildKeysServiceServicename(SLProtocol protocol) { return (System.String[])protocol.NotifyProtocol(196, 7, Key); }
-	public System.String[] GetChildKeysServiceServicetype(SLProtocol protocol) { return (System.String[])protocol.NotifyProtocol(196, 8, Key); }
-	public System.String[] GetChildKeysServiceServiceprovider(SLProtocol protocol) { return (System.String[])protocol.NotifyProtocol(196, 9, Key); }
-	public System.String[] GetChildKeysServiceServicebitrate(SLProtocol protocol) { return (System.String[])protocol.NotifyProtocol(196, 10, Key); }
-	public System.String[] GetChildKeysServiceServicetransportstreamid(SLProtocol protocol) { return (System.String[])protocol.NotifyProtocol(196, 14, Key); }
 }
 /// <summary>IDX: 0</summary>
 public class ServiceQActionRow : QActionTableRow
@@ -408,20 +385,9 @@ public class ServiceQActionRow : QActionTableRow
 	public System.Object Servicebitrate_10 { get { if (base.Columns.ContainsKey(4)) { return base.Columns[4]; } else { return null; } } set { if (base.Columns.ContainsKey(4)) { base.Columns[4] = value; } else { base.Columns.Add(4, value); } } }
 	/// <summary>PID: 10 | Type: read</summary>
 	public System.Object Servicebitrate { get { if (base.Columns.ContainsKey(4)) { return base.Columns[4]; } else { return null; } } set { if (base.Columns.ContainsKey(4)) { base.Columns[4] = value; } else { base.Columns.Add(4, value); } } }
-	/// <summary>PID: 14 | Type: read</summary>
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public System.Object Servicetransportstreamid_14 { get { if (base.Columns.ContainsKey(5)) { return base.Columns[5]; } else { return null; } } set { if (base.Columns.ContainsKey(5)) { base.Columns[5] = value; } else { base.Columns.Add(5, value); } } }
-	/// <summary>PID: 14 | Type: read</summary>
-	public System.Object Servicetransportstreamid { get { if (base.Columns.ContainsKey(5)) { return base.Columns[5]; } else { return null; } } set { if (base.Columns.ContainsKey(5)) { base.Columns[5] = value; } else { base.Columns.Add(5, value); } } }
-	public ServiceQActionRow() : base(0, 6) { }
-	public ServiceQActionRow(System.Object[] oRow) : base(0, 6, oRow) { }
+	public ServiceQActionRow() : base(0, 5) { }
+	public ServiceQActionRow(System.Object[] oRow) : base(0, 5, oRow) { }
 	public static implicit operator ServiceQActionRow(System.Object[] source) { return new ServiceQActionRow(source); }
 	public static implicit operator System.Object[](ServiceQActionRow source) { return source.ToObjectArray(); }
-	public System.Object[] GetParentRowTransportstreamsServiceid(SLProtocol protocol) { return (System.Object[])protocol.GetRow(100, (System.String)Serviceid); }
-	public System.Object[] GetParentRowTransportstreamsServicename(SLProtocol protocol) { return (System.Object[])protocol.GetRow(100, (System.String)Servicename); }
-	public System.Object[] GetParentRowTransportstreamsServicetype(SLProtocol protocol) { return (System.Object[])protocol.GetRow(100, (System.String)Servicetype); }
-	public System.Object[] GetParentRowTransportstreamsServiceprovider(SLProtocol protocol) { return (System.Object[])protocol.GetRow(100, (System.String)Serviceprovider); }
-	public System.Object[] GetParentRowTransportstreamsServicebitrate(SLProtocol protocol) { return (System.Object[])protocol.GetRow(100, (System.String)Servicebitrate); }
-	public System.Object[] GetParentRowTransportstreamsServicetransportstreamid(SLProtocol protocol) { return (System.Object[])protocol.GetRow(100, (System.String)Servicetransportstreamid); }
 }
 }

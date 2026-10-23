@@ -20,11 +20,14 @@ public static class QAction
     /// <param name="protocol">Link with SLProtocol process.</param>
     /// 
     private static readonly Random Random = new Random();
+    public static string DataPath { get; set; } =
+        @"C:\Skyline DataMiner\Documents\Exercise Skyline Encoder Decoder RME\Data.json";
+
     public static void Run(SLProtocol protocol)
 	{
 		try
 		{
-            var path = @"C:\Skyline DataMiner\Documents\Exercise Skyline Encoder Decoder RME\Data.json";
+            var path = DataPath;
 
             if (!File.Exists(path))
 			{
@@ -75,8 +78,6 @@ public static class QAction
 			protocol.Log($"QA{protocol.QActionID}|{protocol.GetTriggerParameter()}|Run|Exception thrown:{Environment.NewLine}{ex}", LogType.Error, LogLevel.NoLogging);
 		}
 	}
-
-
 
     private static void UpsertRow(SLProtocol protocol, int tableId, string key, object[] row)
     {
